@@ -3,50 +3,67 @@ import Container from "@components/container.astro";
 import Link from "@components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+import { Image } from "astro:assets";
+import LogoImage from "@assets/logo_2.webp";
 
 const menuitems = [
   {
-    title: "Features",
-    path: "#",
-    children: [
-      { title: "Action", path: "/" },
-      { title: "Another action", path: "#" },
-      { title: "Dropdown Submenu", path: "#" },
-      { title: "404 Page", path: "/404" },
-    ],
+    title: "หน้าหลัก",
+    path: "/",
   },
   {
-    title: "Pricing",
+    title: "เกี่ยวกับเรา",
     path: "/pricing",
   },
   {
-    title: "About",
+    title: "สินค้า",
+    path: "/blog",
+    children: [
+      { title: "ระบบบำบัดน้ำเสีย", path: "/" },
+      { title: "ระบบผลิตน้ำประปา", path: "#" },
+      { title: "ระบบบำบัดอากาศ", path: "#" },
+      { title: "ระบบดักละอองน้ำ", path: "/404" },
+    ],
+  },
+  {
+    title: "บทความ",
     path: "/about",
   },
   {
-    title: "Blog",
-    path: "/blog",
-  },
-  {
-    title: "Contact",
+    title: "ติดต่อเรา",
     path: "/contact",
-  },
-  {
-    title: "Pro Version",
-    badge: true,
-    path: "https://astroship-pro.web3templates.com/",
   },
 ];
 ---
 
-<Container>
-  <header class="flex flex-col lg:flex-row justify-between items-center h-20">
+<script>
+  const header = document.getElementById("header");
+  document.addEventListener("scroll", (evt) => {
+    const condition = 
+      document.body.scrollTop > 0 || document.documentElement.scrollTop > 0;
+    if (!header) return;
+    if (condition) {
+      header.style.setProperty('--header-height', '5rem');
+    } else {
+      header.style.setProperty('--header-height', '7rem');
+    }
+  });
+</script>
+
+<Container class="sticky top-0 z-20 max-w-full bg-primary-950">
+  <header
+    style="--header-height: 7rem; height: var(--header-height)"
+    class="flex flex-col lg:flex-row justify-between items-center transition-all duration-500"
+    id="header">
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between">
-        <a href="/" class="text-lg"
-          ><span class="font-bold text-slate-800">Astro</span><span
-            class="text-slate-500">ship</span
-          >
+        <a href="/" class="text-lg bg-white"
+          ><Image
+            src={LogoImage}
+            alt={"Logo"}
+            width={LogoImage.width / 6}
+            densities={[0]}
+          />
         </a>
         <div class="block lg:hidden">
           <MenuIcon class="w-4 h-4 text-gray-800" />
@@ -69,13 +86,13 @@ const menuitems = [
                   <li>
                     <a
                       href={item.path}
-                      class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
+                      class="flex lg:px-3 py-2 items-center text-white hover:text-yellow-100 text-lg">
                       <span> {item.title}</span>
-                      {item.badge && (
+                      {/* {item?.badge && (
                         <span class="ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-indigo-600 rounded-full">
                           New
                         </span>
-                      )}
+                      )} */}
                     </a>
                   </li>
                 )}
@@ -84,15 +101,13 @@ const menuitems = [
           }
         </ul>
         <div class="lg:hidden flex items-center mt-3 gap-4">
-          <Link href="#" style="muted" block size="md">Log in</Link>
-          <Link href="#" size="md" block>Sign up</Link>
+          Menu
         </div>
       </MenuItems>
     </Astronav>
     <div>
       <div class="hidden lg:flex items-center gap-4">
-        <a href="#">Log in</a>
-        <Link href="#" size="md">Sign up</Link>
+        
       </div>
     </div>
   </header>
