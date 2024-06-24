@@ -5,6 +5,15 @@ import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 import { Image } from "astro:assets";
 import LogoImage from "@assets/logo_2.webp";
+import LanguagePicker from "@components/LanguagePicker.astro";
+import { getCollection } from "astro:content";
+const contactList = await getCollection("contact");
+const currentLocale = Astro.currentLocale;
+
+const contactLocaleData = contactList.find((page) => {
+  const [lang, ...slug] = page.slug.split("/");
+  return lang === currentLocale ? page : null;
+});
 
 const menuitems = [
   {
@@ -39,30 +48,35 @@ const menuitems = [
 <script>
   const header = document.getElementById("header");
   document.addEventListener("scroll", (evt) => {
-    const condition = 
+    const condition =
       document.body.scrollTop > 0 || document.documentElement.scrollTop > 0;
     if (!header) return;
     if (condition) {
-      header.style.setProperty('--header-height', '5rem');
+      header.style.setProperty("--header-height", "5rem");
     } else {
-      header.style.setProperty('--header-height', '7rem');
+      header.style.setProperty("--header-height", "7rem");
     }
   });
 </script>
 
-<Container class="sticky top-0 z-20 max-w-full bg-primary-950">
+<div class="flex items-center h-10 bg-primary-950 text-white px-4">
+  โทร. {contactLocaleData?.data.tels.map((m) => <span class="mr-2">{m},</span>)}
+  E-mail: {contactLocaleData?.data.email}
+</div>
+<Container fullwidth class="sticky top-0 z-20 bg-primary-900">
   <header
     style="--header-height: 7rem; height: var(--header-height)"
     class="flex flex-col lg:flex-row justify-between items-center transition-all duration-500"
     id="header">
     <Astronav>
-      <div class="flex w-full lg:w-auto items-center justify-between">
-        <a href="/" class="text-lg bg-white"
+      <div class="flex w-full lg:w-auto items-center justify-between px-4">
+        <a href="/" class="text-lg w-[200px]"
           ><Image
             src={LogoImage}
             alt={"Logo"}
-            width={LogoImage.width / 6}
-            densities={[0]}
+            width={LogoImage.width / 8}
+            densities={[1.5, 2]}
+            class="bg-white rounded-2xl"
           />
         </a>
         <div class="block lg:hidden">
@@ -100,14 +114,20 @@ const menuitems = [
             ))
           }
         </ul>
-        <div class="lg:hidden flex items-center mt-3 gap-4">
-          Menu
-        </div>
+        <div class="lg:hidden flex items-center mt-3 gap-4">Menu</div>
       </MenuItems>
     </Astronav>
-    <div>
+    <div class="w-[200px] text-white">
       <div class="hidden lg:flex items-center gap-4">
-        
+        <Link
+          href="#"
+          target="_blank"
+          outline
+          class="flex gap-1 items-center justify-center"
+          rel="noopener">
+          ขอใบเสนอราคา
+        </Link>
+        <LanguagePicker />
       </div>
     </div>
   </header>

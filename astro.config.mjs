@@ -7,6 +7,10 @@ import icon from "astro-icon";
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: "https://astroship.web3templates.com",
+  site: "https://www.scplasticproduct.com",
   integrations: [tailwind(), mdx(), sitemap(), icon()],
+  i18n: {
+    defaultLocale: "th",
+    locales: ["th", "en"],
+  }
 });

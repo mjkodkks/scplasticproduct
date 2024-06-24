@@ -1,6 +1,6 @@
 ---
 import { SEO } from "astro-seo";
-import Footer from "@components/footer.astro";
+import Footer from "@components/home/footer.astro";
 import Navbar from "@components/navbar/navbar.astro";
 import "../global.css";
 import '@fontsource/anuphan/300.css';
@@ -23,7 +23,7 @@ const resolvedImageWithDomain = new URL(
 const { title } = Astro.props;
 
 const makeTitle = title
-  ? title + " | " + "Astroship"
+  ? title + " | " + "SC media products"
   : "จำหน่ายสินค้าพลาสติกมีเดีย สำหรับระบบบำบัดน้ำเสีย ดักจับไอน้ำ และแผ่นช่วยตกตะกอน";
 ---
 
@@ -38,18 +38,13 @@ const makeTitle = title
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <SEO
       title={makeTitle}
-      description="Astroship is a starter website template for Astro built with TailwindCSS."
+      description="จำหน่ายสินค้าพลาสติกมีเดีย สำหรับระบบบำบัดน้ำเสีย ดักจับไอน้ำ และแผ่นช่วยตกตะกอน"
       canonical={canonicalURL}
-      twitter={{
-        creator: "@surjithctly",
-        site: "@web3templates",
-        card: "summary_large_image",
-      }}
       openGraph={{
         basic: {
           url: canonicalURL,
           type: "website",
-          title: `Astroship - Starter Template for Astro`,
+          title: `SC - ผลิตและจำหน่ายพลาสติกมีเดีย`,
           image: resolvedImageWithDomain,
         },
         image: {
