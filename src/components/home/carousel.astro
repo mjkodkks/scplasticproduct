@@ -1,49 +1,9 @@
 ---
 import { Image } from "astro:assets";
-const carouselImage = await Astro.glob("@assets/carousel/*.{jpeg,jpg,png,gif,webp}").then(files => {
+const carouselImage = await Astro.glob("@assets/carousel/*.webp").then(files => {
   return files.map(file => file.default);
 });
 ---
-
-<script>
-  // core version + navigation, pagination modules:
-  import Swiper from "swiper";
-  import { Navigation, Pagination, Autoplay } from "swiper/modules";
-  // import Swiper and modules styles
-  import "swiper/css";
-  import "swiper/css/navigation";
-  import "swiper/css/pagination";
-
-  const progressCircle = document.querySelector<HTMLElement>(".autoplay-progress svg");
-  const progressContent = document.querySelector(".autoplay-progress span");
-
-  // init Swiper:
-  const swiper = new Swiper(".swiper", {
-    // configure Swiper to use modules
-    modules: [Navigation, Pagination, Autoplay],
-    pagination: {
-      el: ".swiper-pagination",
-      type: "bullets",
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
-    spaceBetween: 30,
-    centeredSlides: true,
-    on: {
-        autoplayTimeLeft(s, time, progress) {
-          if (progressCircle === null || progressContent === null) return
-          progressCircle.style.setProperty("--progress", String(1 - progress));
-          progressContent.textContent = `${Math.ceil(time / 1000)}s`;
-        }
-      }
-  });
-</script>
 
 <style scoped>
   .swiper {
@@ -131,3 +91,44 @@ const carouselImage = await Astro.glob("@assets/carousel/*.{jpeg,jpg,png,gif,web
     </div>
   </div>
 </main>
+
+
+<script>
+  // core version + navigation, pagination modules:
+  import Swiper from "swiper";
+  import { Navigation, Pagination, Autoplay } from "swiper/modules";
+  // import Swiper and modules styles
+  import "swiper/css";
+  import "swiper/css/navigation";
+  import "swiper/css/pagination";
+
+  const progressCircle = document.querySelector<HTMLElement>(".autoplay-progress svg");
+  const progressContent = document.querySelector(".autoplay-progress span");
+
+  // init Swiper:
+  const swiper = new Swiper(".swiper", {
+    // configure Swiper to use modules
+    modules: [Navigation, Pagination, Autoplay],
+    pagination: {
+      el: ".swiper-pagination",
+      type: "bullets",
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    spaceBetween: 30,
+    centeredSlides: true,
+    on: {
+        autoplayTimeLeft(s, time, progress) {
+          if (progressCircle === null || progressContent === null) return
+          progressCircle.style.setProperty("--progress", String(1 - progress));
+          progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+        }
+      }
+  });
+</script>
