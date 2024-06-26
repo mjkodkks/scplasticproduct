@@ -64,8 +64,8 @@ const contactLocaleData = contactList.find((page) => {
         <div>
           <Image src={lineQRCode} alt={"https://line.me/ti/p/0ivf_qmCuf"} />
         </div>
-        <div>
-          <div class="fb-page" data-href="https://www.facebook.com/SCmediaproducts" data-tabs="timeline" data-width="" data-height="360" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-lazy="true"><blockquote cite="https://www.facebook.com/SCmediaproducts" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SCmediaproducts">SC media products</a></blockquote></div>
+        <div id="fb-page">
+          <div class="fb-page" data-href="https://www.facebook.com/SCmediaproducts" data-tabs="timeline" data-width="" data-height="260" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-lazy="false"><blockquote cite="https://www.facebook.com/SCmediaproducts" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/SCmediaproducts">SC media products</a></blockquote></div>
         </div>
       </div>
     </div>
@@ -75,3 +75,46 @@ const contactLocaleData = contactList.find((page) => {
     {Astro.site}. All rights reserved.
   </div>
 </footer>
+
+
+<script>
+  function loadFacebookSDK() {
+  const script = document.createElement('script');
+  script.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v20.0';
+  script.async = true;
+  script.defer = true;
+  
+  document.body.appendChild(script);
+  
+  script.addEventListener("load", ()=> {
+    FB.XFBML.parse();
+  });
+}
+
+function handleIntersection(entries, observer) {
+  console.log(entries)
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      loadFacebookSDK();
+      observer.unobserve(entry.target);
+    }
+  });
+}
+
+function initFacebookSocialPlugin() {
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver(handleIntersection, options);
+  const facebookPageTarget = document.querySelector('#fb-page');
+  
+  if (facebookPageTarget) {
+    observer.observe(facebookPageTarget);
+  }
+}
+
+initFacebookSocialPlugin()
+</script>

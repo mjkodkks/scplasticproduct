@@ -1,9 +1,8 @@
 ---
 import { Image } from "astro:assets";
-const carouselImage = await Astro.glob("@assets/carousel/*.webp").then(files => {
+const carouselImage = await Astro.glob("@assets/carousel/*.{jpeg,jpg,png,gif,webp}").then(files => {
   return files.map(file => file.default);
 });
-
 ---
 
 <script>
@@ -107,9 +106,9 @@ const carouselImage = await Astro.glob("@assets/carousel/*.webp").then(files => 
     <div class="swiper-wrapper">
       <!-- Slides -->
        {
-         carouselImage.map((image) => (
+         carouselImage.map((image, index) => (
            <div class="swiper-slide">
-             <Image src={image} alt={image} loading={'eager'} />
+             <Image src={image} alt={`Slide ${index + 1}`} loading={'eager'} />
            </div>
          ))
        }
