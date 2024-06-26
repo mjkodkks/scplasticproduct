@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, squooshImageService } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
@@ -9,6 +9,9 @@ import partytown from '@astrojs/partytown';
 export default defineConfig({
   output: 'static',
   site: "https://www.scplasticproduct.com",
+  image: {
+    service: squooshImageService(),
+  },
   integrations: [tailwind(), mdx(), sitemap(), icon(), partytown()],
   i18n: {
     defaultLocale: "th",
