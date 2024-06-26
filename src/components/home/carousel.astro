@@ -1,0 +1,134 @@
+---
+import { Image } from "astro:assets";
+const carouselImage = await Astro.glob("@assets/carousel/*.webp").then(files => {
+  return files.map(file => file.default);
+});
+
+---
+
+<script>
+  // core version + navigation, pagination modules:
+  import Swiper from "swiper";
+  import { Navigation, Pagination, Autoplay } from "swiper/modules";
+  // import Swiper and modules styles
+  import "swiper/css";
+  import "swiper/css/navigation";
+  import "swiper/css/pagination";
+
+  const progressCircle = document.querySelector<HTMLElement>(".autoplay-progress svg");
+  const progressContent = document.querySelector(".autoplay-progress span");
+
+  // init Swiper:
+  const swiper = new Swiper(".swiper", {
+    // configure Swiper to use modules
+    modules: [Navigation, Pagination, Autoplay],
+    pagination: {
+      el: ".swiper-pagination",
+      type: "bullets",
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    spaceBetween: 30,
+    centeredSlides: true,
+    on: {
+        autoplayTimeLeft(s, time, progress) {
+          if (progressCircle === null || progressContent === null) return
+          progressCircle.style.setProperty("--progress", String(1 - progress));
+          progressContent.textContent = `${Math.ceil(time / 1000)}s`;
+        }
+      }
+  });
+</script>
+
+<style scoped>
+  .swiper {
+    width: 100%;
+    height: 460px;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #000;
+    /* background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(110,255,117,1) 35%, rgb(73, 109, 255) 100%); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .autoplay-progress {
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      z-index: 10;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--swiper-theme-color);
+    }
+
+    .autoplay-progress svg {
+      --progress: 0;
+      position: absolute;
+      left: 0;
+      top: 0px;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      stroke-width: 4px;
+      stroke: var(--swiper-theme-color);
+      fill: none;
+      stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+      stroke-dasharray: 125.6;
+      transform: rotate(-90deg);
+    }
+</style>
+
+<main class="grid place-items-center">
+  <!-- Slider main container -->
+  <div class="swiper">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+       {
+         carouselImage.map((image) => (
+           <div class="swiper-slide">
+             <Image src={image} alt={image} loading={'eager'} />
+           </div>
+         ))
+       }
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- If we need scrollbar -->
+    <div class="swiper-scrollbar"></div>
+
+    <div class="autoplay-progress">
+      <svg viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="20"></circle>
+      </svg>
+      <span></span>
+    </div>
+  </div>
+</main>

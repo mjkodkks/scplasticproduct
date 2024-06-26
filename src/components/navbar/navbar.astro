@@ -7,6 +7,7 @@ import { Image } from "astro:assets";
 import LogoImage from "@assets/logo_2.webp";
 import LanguagePicker from "@components/LanguagePicker.astro";
 import { getCollection } from "astro:content";
+import SocialGroup from "@components/socialGroup.astro";
 const contactList = await getCollection("contact");
 const currentLocale = Astro.currentLocale;
 
@@ -59,9 +60,14 @@ const menuitems = [
   });
 </script>
 
-<div class="flex items-center h-10 bg-primary-950 text-white px-4">
-  โทร. {contactLocaleData?.data.tels.map((m) => <span class="mr-2">{m},</span>)}
-  E-mail: {contactLocaleData?.data.email}
+<div class="flex items-center justify-between h-10 bg-primary-950 text-white px-4">
+  <div>
+    โทร. {contactLocaleData?.data.tels.map((m) => <span class="mr-2">{m},</span>)}
+    E-mail: {contactLocaleData?.data.email}
+  </div>
+  <div>
+    <SocialGroup />
+  </div>
 </div>
 <Container fullwidth class="sticky top-0 z-20 bg-primary-900">
   <header
@@ -76,6 +82,7 @@ const menuitems = [
             alt={"Logo"}
             width={LogoImage.width / 8}
             densities={[1.5, 2]}
+            loading={"eager"}
             class="bg-white rounded-2xl"
           />
         </a>

@@ -3,11 +3,9 @@ import { SEO } from "astro-seo";
 import Footer from "@components/home/footer.astro";
 import Navbar from "@components/navbar/navbar.astro";
 import "../global.css";
-import '@fontsource/anuphan/300.css';
-import '@fontsource/anuphan/400.css';
-import '@fontsource/anuphan/500.css';
-
-
+import "@fontsource/anuphan/300.css";
+import "@fontsource/anuphan/400.css";
+import "@fontsource/anuphan/500.css";
 
 export interface Props {
   title: string;
@@ -27,13 +25,19 @@ const makeTitle = title
   : "จำหน่ายสินค้าพลาสติกมีเดีย สำหรับระบบบำบัดน้ำเสีย ดักจับไอน้ำ และแผ่นช่วยตกตะกอน";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v20.0"
+      nonce="eTTxwxvL"></script>
 
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <SEO
@@ -64,5 +68,6 @@ const makeTitle = title
         content-visibility: auto;
       }
     </style>
+    <div id="fb-root"></div>
   </body>
 </html>

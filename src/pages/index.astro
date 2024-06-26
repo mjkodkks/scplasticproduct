@@ -1,16 +1,16 @@
 ---
 import Container from "@components/container.astro";
 import Cta from "@components/home/cta.astro";
-import Features from "@components/home/features.astro";
-import Hero from "@components/home/hero.astro";
 import Logos from "@components/logos.astro";
 import Layout from "@layouts/Layout.astro";
+import Carousel from "@components/home/carousel.astro";
+import Product from "@components/home/product.astro";
 ---
 
 <Layout title="หน้าหลัก">
+  <Carousel />
   <Container>
-    <Hero />
-    <Features />
+    <Product />
     <Logos />
     <Cta />
   </Container>

@@ -1,0 +1,72 @@
+---
+import { Image } from "astro:assets";
+import Image1 from "@assets/products/ระบบบำบัดน้ำเสีย.webp";
+import Image2 from "@assets/products/ระบบผลิตน้ำประปา.webp";
+import Image3 from "@assets/products/ระบบบำบัดอากาศ.webp";
+import Image4 from "@assets/products/ระบบดักละอองน้ำ.webp";
+
+const products = [
+  {
+    title: "ระบบบำบัดน้ำเสีย",
+    description:
+      "Build your site using React, Svelte, Vue, Preact, web components, or just plain ol' HTML + JavaScript.",
+    imageSrc: Image1,
+  },
+  {
+    title: "ระบบผลิตน้ำประปา",
+    description:
+      "Astro renders your entire page to static HTML, removing all JavaScript from your final build by default.",
+    imageSrc: Image2,
+  },
+  {
+    title: "ระบบบำบัดอากาศ",
+    description:
+      "Need some JS? Astro can automatically hydrate interactive components when they become visible on the page.  ",
+    imageSrc: Image3,
+  },
+  {
+    title: "ระบบดักละอองน้ำ",
+    description:
+      "Astro supports TypeScript, Scoped CSS, CSS Modules, Sass, Tailwind, Markdown, MDX, and any other npm packages.",
+    imageSrc: Image4,
+  },
+];
+---
+
+<div class="bg-white pt-4">
+  <h1 class="text-4xl font-bold text-center">ผลิตภัณฑ์</h1>
+  <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8">
+    {
+      products.map((item, i) => (
+        <div class:list={["product", `product-${i + 1}`]} class="flex justify-center flex-col items-center group cursor-pointer shadow-sm transition-all duration-300 py-4 overflow-hidden">
+          <h3 class="text-center my-2 text-lg font-bold">{item.title}</h3>
+          <Image
+            src={item.imageSrc}
+            alt={item.title}
+            class="group-hover:scale-110 transition duration-500 object-cover rounded-xl shadow-sm"
+          />
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+  let t1 = gsap.timeline(
+    {
+      scrollTrigger: {
+      trigger: ".product",
+      start: "-50% center",
+      end: "200% center",
+    },
+    }
+  )
+
+  t1.from(".product-1", {y: 20, opacity: 0.5, duration: 0.3}).to(".product-1", {y: 0, opacity: 1, duration: 0})
+  t1.from(".product-2", {y: 20, opacity: 0.5, duration: 0.3}).to(".product-2", {y: 0, opacity: 1, duration: 0})
+  t1.from(".product-3", {y: 20, opacity: 0.5, duration: 0.3}).to(".product-3", {y: 0, opacity: 1, duration: 0})
+  t1.from(".product-4", {y: 20, opacity: 0.5, duration: 0.3}).to(".product-4", {y: 0, opacity: 1, duration: 0})
+</script>
