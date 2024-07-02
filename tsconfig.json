@@ -4,14 +4,30 @@
     "baseUrl": "src",
     "strictNullChecks": true,
     "allowJs": true,
-    "types": ["astro/client", "@types/facebook-js-sdk"],
+    "types": [
+      "astro/client",
+      "@types/facebook-js-sdk"
+    ],
     "paths": {
-      "@lib/*": ["lib/*"],
-      "@utils/*": ["utils/*"],
-      "@components/*": ["components/*"],
-      "@layouts/*": ["layouts/*"],
-      "@assets/*": ["assets/*"],
-      "@pages/*": ["pages/*"],
-    }
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@layouts/*": [
+        "layouts/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ]
+    },
+    "jsx": "preserve"
   }
 }

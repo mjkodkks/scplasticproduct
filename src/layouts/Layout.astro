@@ -1,11 +1,16 @@
 ---
 import { SEO } from "astro-seo";
 import Footer from "@components/home/footer.astro";
-import Navbar from "@components/navbar/navbar.astro";
+import Navbar from "@components/navbar/navbar.vue";
 import "../global.css";
 import "@fontsource/anuphan/300.css";
 import "@fontsource/anuphan/400.css";
 import "@fontsource/anuphan/500.css";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import LogoImage from "@assets/logo_2.webp";
+import type { MenuItem } from "app";
+import SocialGroup from "@components/socialGroup.astro";
 
 export interface Props {
   title: string;
@@ -19,6 +24,43 @@ const resolvedImageWithDomain = new URL(
 ).toString();
 
 const { title } = Astro.props;
+
+const contactList = await getCollection("contact");
+const currentLocale = Astro.currentLocale;
+
+const contactLocaleData = contactList.find((page) => {
+  const [lang, ...slug] = page.slug.split("/");
+  return lang === currentLocale ? page : null;
+});
+
+const menuitems: MenuItem[] = [
+  {
+    title: "หน้าหลัก",
+    path: "/",
+  },
+  {
+    title: "เกี่ยวกับเรา",
+    path: "/pricing",
+  },
+  {
+    title: "สินค้า",
+    path: "/blog",
+    children: [
+      { title: "ระบบบำบัดน้ำเสีย", path: "/" },
+      { title: "ระบบผลิตน้ำประปา", path: "#" },
+      { title: "ระบบบำบัดอากาศ", path: "#" },
+      { title: "ระบบดักละอองน้ำ", path: "/404" },
+    ],
+  },
+  {
+    title: "บทความ",
+    path: "/about",
+  },
+  {
+    title: "ติดต่อเรา",
+    path: "/contact",
+  },
+];
 
 const makeTitle = title
   ? title + " | " + "SC media products"
@@ -51,8 +93,25 @@ const makeTitle = title
     />
   </head>
   <body>
-    <Navbar />
-    <slot />
+    <Navbar
+      client:only="vue"
+      contactLocaleData={contactLocaleData}
+      menuitems={menuitems}>
+       <Image
+          src={LogoImage}
+          alt="logo"
+          width={LogoImage.width / 8}
+          densities={[1.5, 2]}
+          loading={"eager"}
+          class="bg-white rounded-2xl"
+          slot={"logo"}
+        />
+      </slot>
+        <SocialGroup slot={"social"} />
+    </Navbar>
+    <main>
+      <slot />
+    </main>
     <Footer />
     <style is:global>
       /* Improve Page speed */

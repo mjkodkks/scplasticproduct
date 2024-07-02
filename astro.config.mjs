@@ -5,16 +5,18 @@ import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import partytown from '@astrojs/partytown';
 
+import vue from "@astrojs/vue";
+
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
   site: "https://www.scplasticproduct.com",
   image: {
-    service: squooshImageService(),
+    service: squooshImageService()
   },
-  integrations: [tailwind(), mdx(), sitemap(), icon(), partytown()],
+  integrations: [tailwind(), mdx(), sitemap(), icon(), partytown(), vue({ devtools: true })],
   i18n: {
     defaultLocale: "th",
-    locales: ["th", "en"],
+    locales: ["th", "en"]
   }
 });
