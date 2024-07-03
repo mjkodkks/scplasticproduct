@@ -1,0 +1,21 @@
+---
+const { contactLocaleData } = Astro.props;
+---
+
+<div
+  class="flex lg:flex-row flex-col items-center lg:justify-between justify-center lg:h-10 bg-primary-950 text-white px-4 lg:py-0 py-4 gap-2">
+  <div class="lg:text-base text-sm">
+    โทร. {
+      contactLocaleData?.data.tels.map((tel) => (
+        <span class="mr-2">
+          {tel},
+        </span>
+      ))
+    }
+    <br class="lg:hidden" />
+    E-mail: {contactLocaleData?.data.email}
+  </div>
+  <div>
+    <slot name="social" />
+  </div>
+</div>

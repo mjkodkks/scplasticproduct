@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import Image1 from "@assets/project/pal_ ring_media.jpg";
 import Image2 from "@assets/project/tube_settler.jpg";
 import Image3 from "@assets/project/cross_flow_media_fin_filter.jpg";
+import Button from "@components/ui/button.astro";
 const wording1 = `ตัวอย่างผลงาน ที่ลูกค้าไว้วางใจบริการ S.C. PLASTIC PRODUCTS`;
 const wording2 = `เราคือผู้ผลิตและจำหน่ายพลาสติกมีเดียที่มีคุณภาพ ผลิตและจำหน่ายสินค้าประเภทตัวกลางพลาสติก 
 ที่ใช้งานสำหรับในระบบบำบัดน้ำเสีย, ระบบบำบัดอากาศ, ระบบผลิตน้ำดี และ ดักไอน้ำ รวมทั้งรับขึ้นรูปพลาสติกบรรจุภัณฑ์/รับทำแม่พิมพ์ขึ้นรูปพลาสติกและให้คำปรึกษาสำหรับผลิตภัณฑ์ด้านสิ่งแวดล้อม`;
@@ -31,22 +32,24 @@ const productList = [
         {wording1}
       </h2>
     </div>
-    <div class="grid mb-6 lg:mb-16 lg:grid-cols-3 grid-cols-1 lg:gap-0 gap-8 rounded-3xl overflow-hidden">
+    <div class="grid lg:grid-cols-3 grid-cols-1 justify-center lg:gap-0 gap-8 lg:rounded-3xl overflow-hidden">
       {
         productList.map((item) => (
           <div class="">
             <Image
               src={item.image}
               alt={item.title}
-              class="w-full lg:rounded-none sm:rounded-noneß"
+              class="w-full lg:rounded-none rounded-2xl"
+              width={500}
+              height={375}
               loading={"lazy"}
             />
-            {/* <div class="p-5">
-                <h3 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{item.title}</h3>
-              </div> */}
           </div>
         ))
       }
+    </div>
+    <div class="text-center mt-6">
+      <Button size="md" style="outline">ดูเพิ่มเติม</Button>
     </div>
   </div>
 </section>

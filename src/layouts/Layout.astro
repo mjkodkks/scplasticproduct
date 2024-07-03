@@ -11,6 +11,8 @@ import { Image } from "astro:assets";
 import LogoImage from "@assets/logo_2.webp";
 import type { MenuItem } from "app";
 import SocialGroup from "@components/socialGroup.astro";
+import TopBar from "@components/navbar/topbar.astro";
+import Link from "@components/ui/link.astro";
 
 export interface Props {
   title: string;
@@ -93,6 +95,9 @@ const makeTitle = title
     />
   </head>
   <body>
+    <TopBar contactLocaleData={contactLocaleData}>
+      <SocialGroup slot={"social"} />
+    </TopBar>
     <Navbar
       client:only="vue"
       contactLocaleData={contactLocaleData}
@@ -106,8 +111,9 @@ const makeTitle = title
           class="bg-white rounded-2xl"
           slot={"logo"}
         />
-      </slot>
-        <SocialGroup slot={"social"} />
+        <Link style="primary" href="/contact" slot={"menu-right"}>
+          ขอใบเสนอราคา
+        </Link>
     </Navbar>
     <main>
       <slot />

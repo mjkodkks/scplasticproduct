@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import Menu from "./menu.vue";
 import type { MenuItem } from "app";
 
@@ -9,11 +9,9 @@ interface Props {
 }
 defineProps<Props>();
 
-const isMobileOpen = ref(false)
-
+const isMobileOpen = ref(false);
 const r = document.querySelector<HTMLElement>(":root");
-
-document.addEventListener("scroll", (evt) => {
+function bindScroll(evt) {
   const condition =
     document.body.scrollTop > 0 || document.documentElement.scrollTop > 0;
   if (!r) return;
@@ -22,24 +20,20 @@ document.addEventListener("scroll", (evt) => {
   } else {
     r.style.setProperty("--header-height", "7rem");
   }
+}
+
+onMounted(() => {
+  if (!document) return;
+  document.addEventListener("scroll", bindScroll);
+});
+
+onUnmounted(() => {
+  if (!document) return;
+  document.removeEventListener("scroll", bindScroll);
 });
 </script>
 
 <template>
-  <div
-    class="flex lg:flex-row flex-col items-center lg:justify-between justify-center lg:h-10 bg-primary-950 text-white px-4 lg:py-0 py-4 gap-2">
-    <div class="lg:text-base text-sm">
-      โทร.
-      <span v-for="tel in contactLocaleData?.data.tels" class="mr-2"
-        >{{ tel }},</span
-      >
-      <br class="lg:hidden" />
-      E-mail: {{ contactLocaleData?.data.email }}
-    </div>
-    <div>
-      <slot name="social"></slot>
-    </div>
-  </div>
   <div
     class="w-full sticky top-0 z-20 bg-primary-900 transition-all duration-500"
     style="height: var(--header-height)"
@@ -51,7 +45,10 @@ document.addEventListener("scroll", (evt) => {
         <a href="/" class="text-lg w-[200px]">
           <slot name="logo"></slot>
         </a>
-        <div class="block lg:hidden text-white" id="menuMobileBtn" @click="isMobileOpen = !isMobileOpen">
+        <div
+          class="block lg:hidden text-white"
+          id="menuMobileBtn"
+          @click="isMobileOpen = !isMobileOpen">
           <svg
             fill="currentColor"
             width="24"
@@ -72,27 +69,20 @@ document.addEventListener("scroll", (evt) => {
       </div>
 
       <Menu :menuitems="menuitems" />
-      <div class="w-[200px] text-white">
-        <div class="hidden lg:flex items-center gap-4">
-          <a
-            href="#"
-            target="_blank"
-            outline
-            class="flex gap-1 items-center justify-center"
-            rel="noopener">
-            ขอใบเสนอราคา
-          </a>
-        </div>
+      <div class="w-[200px] hidden lg:block">
+        <slot name="menu-right"></slot>
       </div>
     </header>
   </div>
 
   <div
     id="menu-mobile"
-    class="lg:hidden grid sticky z-20 transition-all duration-300 overflow-hidden"
-    :class="isMobileOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
-    style="top: var(--header-height)">
+    class="lg:hidden grid sticky z-20 transition-all duration-500 overflow-hidden shadow-md bg-white"
+    style="top: var(--header-height)" :style="{
+      maxHeight: isMobileOpen ? '100vh' : '0',
+    }">
     <Menu :menuitems="menuitems" customClass="overflow-hidden" is-mobile />
+    <slot name="menu-right"></slot>
   </div>
 </template>
 
