@@ -20,7 +20,7 @@ defineProps<Props>();
         <Dropdown :menuitems="item.children" class="group-hover/parent:visible group-hover/parent:opacity-100 absolute left-[10%] top-[80%] min-w-[200px] transition-all duration-300"></Dropdown>
       </li>
       <li v-else class="text-white">
-        {{ item.title }}
+        <a :href="item.path">{{ item.title }}</a> 
       </li>
     </template>
   </ul>

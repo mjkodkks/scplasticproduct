@@ -44,7 +44,7 @@ defineProps<Props>();
           :class="[isMobile ? 'child-menu' : 'child-menu absolute left-[100%] top-0 min-w-[200px] transition-all duration-300']"></Dropdown>
       </li>
       <li v-else class="text-black p-2 hover:bg-primary-100 rounded-md">
-        {{ item.title }}
+       <a :href="item.path">{{ item.title }}</a> 
       </li>
     </template>
   </ul>

@@ -1,57 +1,109 @@
 ---
 import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
+import { Picture, Image } from "astro:assets";
+import AboutUsImage from "@assets/home/about_us.webp";
+import MissionImage from "@assets/about/mission.webp";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
 import Sectionhead from "@components/home/sectionhead.astro";
 
-// Filter team entries with 'draft: false' & date before current date
-const publishedTeamMembers = await getCollection("team", ({ data }) => {
-  return !data.draft && data.publishDate < new Date();
-});
+const aboutMe = `บริษัท เอส.ซี. พลาสติก โปรดักส์ จำกัด ก่อตั้งขึ้นเมื่อวันที่ 10 เมษายน
+          พ.ศ. 2540 สำนักงานตั้งอยู่ที่ เลขที่ 6 เฉลิมพระเกียรติ ร.9 ซอย 48 แยก
+          11 แขวง ดอกไม้ เขต ประเวศ กรุงเทพมหานคร 10250 ทีมงานมีความรู้
+          ความเชี่ยวชาญด้านสิ่งแวดล้อม
+          จากประสบการณ์ที่ผ่านมาทางบริษัทได้มีการพัฒนากระบวนการผลิตสินค้าตลอดมา
+          เพื่อผลิตและจำหน่ายสินค้าประเภทตัวกลางพลาสติก
+          ที่ใช้งานสำหรับในระบบบำบัดน้ำเสีย, ระบบบำบัดอากาศ, ระบบผลิตน้ำดี และ
+          ดักไอน้ำ อาทิเช่น Cross flow &amp; Random Media (Pall Ring, Heilex),
+          Drift Eliminator, Fin Filter และ Tube Settler
+          นอกจากนั้นยังมีรับขึ้นรูปพลาสติกบรรจุภัณฑ์/รับทำแม่พิมพ์ขึ้นรูปพลาสติกและบริษัทมีให้คำปรึกษาสำหรับผลิตภัณฑ์ด้านสิ่งแวดล้อม`
+
+const missions = [
+  {
+    header: 'Sustainable Responsibility',
+    content: 'ดำเนินธุรกิจเติบโตอย่างยั่งยืนด้วยความรักผิดชอบต่อสังคมและชุมชน'
+  },
+  {
+    header: 'Customer Satisfaction',
+    content: 'บริการ สร้างความพึงพอใจสูงสุดกับลูกค้า'
+  },
+  {
+    header: 'Products Quality',
+    content: 'ผลิตสินค้าที่มีคุณภาพ และเป็นมิตรกับสิ่งแวดล้อม'
+  },
+  {
+    header: 'Participation Partner',
+    content: 'เป็นพันธมิตรกับคู่ค้า ดำเนินธุรกิจและเติบโตร่วมกัน'
+  }
+];
 ---
 
 <Layout title="About">
   <Container>
     <Sectionhead>
-      <Fragment slot="title">About</Fragment>
-      <Fragment slot="desc">We are a small passionate team.</Fragment>
+      <Fragment slot="title">เกี่ยวกับเรา</Fragment>
     </Sectionhead>
 
-    <div class="flex flex-col gap-3 mx-auto max-w-4xl mt-16">
-      <h2 class="font-bold text-3xl text-gray-800">
-        Empowering the world with Astro.
-      </h2>
-      <p class="text-lg leading-relaxed text-slate-500">
-        We're a multi-cultural team from around the world! We come from diverse
-        backgrounds, bringing different personalities, experiences and skills to
-        the job. This is what makes our team so special.
-      </p>
-    </div>
-    <div class="grid md:grid-cols-3 gap-10 mx-auto max-w-4xl mt-12">
-      {
-        publishedTeamMembers.map((teamMemberEntry) => (
-          <div class="group">
-            <div class="w-full aspect-square">
-              <Picture
-                src={teamMemberEntry.data.avatar.src}
-                alt={teamMemberEntry.data.avatar.alt}
-                sizes="(max-width: 800px) 100vw, 400px"
-                width={400}
-                height={400}
-                class="w-full rounded-md rounded transition group-hover:-translate-y-1 group-hover:shadow-xl bg-white object-cover object-center aspect-square"
-              />
-            </div>
-
-            <div class="mt-4 text-center">
-              <h2 class="text-lg text-gray-800">{teamMemberEntry.data.name}</h2>
-              <h3 class="text-sm text-slate-500">
-                {teamMemberEntry.data.title}
-              </h3>
-            </div>
+    <div class="container">
+      <div class="grid grid-cols-1 gap-4 mt-16">
+        <p class="text-lg indent-8">
+          { aboutMe }
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 mt-16">
+        <div class="flex justify-center items-center">
+          <Image src={AboutUsImage} alt="logo_address" height={375} class="rounded-lg" />
+        </div>
+        <div class="flex justify-center items-center flex-col">
+          <h3 class="text-4xl">Vision วิสัยทัศน์</h3>
+          <div class="flex items-center justify-center gap-4 mt-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="0.88em"
+              height="1em"
+              viewBox="0 0 448 512">
+              <path
+                fill="currentColor"
+                d="m223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34m-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34"
+              ></path>
+            </svg>
+            <p class="text-2xl text-center">
+              เราคือผู้ผลิตและจำหน่ายพลาสติกมีเดียที่มีคุณภาพ <br /> มาตรฐานสากล
+              เป็นมิตรกับสิ่งแวดล้อม ตอบสนอง <br
+              />sความต้องการของลูกค้าอย่างมืออาชีพ
+            </p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="0.88em"
+              height="1em"
+              viewBox="0 0 448 512"
+              class="rotate-180">
+              <path
+                fill="currentColor"
+                d="m223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34m-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34"
+              ></path>
+            </svg>
           </div>
-        ))
-      }
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 my-16">
+        <div class="order-2 md:order-1">
+          <h3 class="text-4xl text-center">Mission พันธกิจ</h3>
+          <div class="grid gap-2 mt-4">
+          {
+            missions.map((mission) => (
+            mission?.header && <p class="header text-2xl"><span class="font-bold text-red-500">{ mission.header[0] }</span><span>{ mission.header.slice(1) }</span></p>
+              <p class="content indent-8 text-xl">{ mission.content } </p>
+            ))
+          }
+          </div>
+          
+        </div>
+        <div class="order-1 md:order-2 flex justify-center items-center">
+          <Image src={MissionImage} alt="mission" height={375} class="rounded-lg" />
+        </div>
+      </div>
     </div>
   </Container>
 </Layout>

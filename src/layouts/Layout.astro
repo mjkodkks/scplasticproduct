@@ -42,7 +42,7 @@ const menuitems: MenuItem[] = [
   },
   {
     title: "เกี่ยวกับเรา",
-    path: "/pricing",
+    path: "/about",
   },
   {
     title: "สินค้า",
@@ -98,11 +98,12 @@ const makeTitle = title
     <TopBar contactLocaleData={contactLocaleData}>
       <SocialGroup slot={"social"} />
     </TopBar>
-    <Navbar
-      client:only="vue"
-      contactLocaleData={contactLocaleData}
-      menuitems={menuitems}>
-       <Image
+    <div class="wait-navbar">
+      <Navbar
+        client:only="vue"
+        contactLocaleData={contactLocaleData}
+        menuitems={menuitems}>
+        <Image
           src={LogoImage}
           alt="logo"
           width={LogoImage.width / 8}
@@ -114,7 +115,8 @@ const makeTitle = title
         <Link style="primary" href="/contact" slot={"menu-right"}>
           ขอใบเสนอราคา
         </Link>
-    </Navbar>
+      </Navbar>
+    </div>
     <main>
       <slot />
     </main>
@@ -124,6 +126,14 @@ const makeTitle = title
       /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
       img {
         content-visibility: auto;
+      }
+
+      .wait-navbar {
+        height: var(--header-height);
+      }
+
+      .wait-navbar:has(#menu-mobile, #header) {
+        display: contents;
       }
     </style>
     <div id="fb-root"></div>

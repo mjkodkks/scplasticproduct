@@ -75,6 +75,8 @@ onUnmounted(() => {
     </header>
   </div>
 
+  <slot></slot>
+
   <div
     id="menu-mobile"
     class="lg:hidden grid sticky z-20 transition-all duration-500 overflow-hidden shadow-md bg-white"
