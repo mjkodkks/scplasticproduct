@@ -42,8 +42,21 @@ const { entry: { data } } = Astro.props;
       <a
         href="/"
         class="bg-gray-100 px-5 py-3 rounded-md hover:bg-gray-200 transition"
-        >← Back to Blog</a
+        >← Back to Home</a
       >
     </div>
   </Container>
 </Layout>
+
+<style scoped>
+img[src*='#left'] {
+    float: left;
+}
+img[src*='#right'] {
+    float: right;
+}
+img[src*='#center'] {
+    display: block;
+    margin: auto;
+}
+</style>
