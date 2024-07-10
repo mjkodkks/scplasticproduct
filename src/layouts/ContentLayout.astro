@@ -8,7 +8,7 @@ const { entry: { data } } = Astro.props;
 
 <Layout title={data.title}>
   <Container>
-    <div class="mx-auto max-w-[735px] mt-14">
+    <div class="mx-auto max-w-screen-md mt-14">
       <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
         {data.category}
       </span>
@@ -35,7 +35,7 @@ const { entry: { data } } = Astro.props;
       </div>
     </div>
 
-    <div class="mx-auto prose prose-lg mt-6">
+    <div class="mx-auto max-w-screen-md  prose prose-lg mt-6">
       <slot />
     </div>
     <div class="text-center my-8">
@@ -47,16 +47,3 @@ const { entry: { data } } = Astro.props;
     </div>
   </Container>
 </Layout>
-
-<style scoped>
-img[src*='#left'] {
-    float: left;
-}
-img[src*='#right'] {
-    float: right;
-}
-img[src*='#center'] {
-    display: block;
-    margin: auto;
-}
-</style>

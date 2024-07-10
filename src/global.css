@@ -1,10 +1,18 @@
 :root {
-  --header-height: 7rem; 
+  --header-height: 7rem;
 }
 
 body {
-    font-family: 'Anuphan', sans-serif;
-    background: white;
-    margin: 0;
-    line-height: inherit;
-  }
+  font-family: "Anuphan", sans-serif;
+  background: white;
+  margin: 0;
+  line-height: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+  float: none !important;
+}
