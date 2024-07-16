@@ -4,26 +4,32 @@ import Container from "@components/container.astro";
 import Sectionhead from "@components/home/sectionhead.astro";
 import Layout from "@layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
+import { getCollection } from "astro:content";
+const contactList = await getCollection("contact");
+const currentLocale = Astro.currentLocale;
+
+const contactLocaleData = contactList.find((page) => {
+  const [lang, ...slug] = page.slug.split("/");
+  return lang === currentLocale ? page : null;
+});
 ---
 
 <Layout title="Contact">
   <Container>
     <Sectionhead>
-      <Fragment slot="title">Contact</Fragment>
-      <Fragment slot="desc">We are a here to help.</Fragment>
+      <Fragment slot="title">ติดต่อเรา</Fragment>
+      <Fragment slot="desc"></Fragment>
     </Sectionhead>
+
+    <div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=sc%20plastic%20product+(SC%20plastic%20product)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps devices</a></iframe></div>
 
     <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-4xl mt-16">
       <div>
-        <h2 class="font-medium text-2xl text-gray-800">Contact Astroship</h2>
-        <p class="text-lg leading-relaxed text-slate-500 mt-3">
-          Have something to say? We are here to help. Fill up the form or send
-          email or call phone.
-        </p>
+        <h2 class="font-medium text-2xl text-gray-800">ที่อยู่</h2>
         <div class="mt-5">
           <div class="flex items-center mt-2 space-x-2 text-gray-600">
             <div class="text-gray-400 w-4 h-4" />
-            <span>1734 Sanfransico, CA 93063</span>
+            <span>{contactLocaleData?.data.address}</span>
           </div><div class="flex items-center mt-2 space-x-2 text-gray-600">
             <div class="text-gray-400 w-4 h-4" /><a
               href="mailto:hello@astroshipstarter.com"
