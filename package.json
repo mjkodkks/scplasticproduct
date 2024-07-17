@@ -19,14 +19,14 @@
     "@fancyapps/ui": "^5.0.36",
     "@fontsource/anuphan": "^5.0.13",
     "@tailwindcss/typography": "^0.5.13",
-    "astro": "^4.11.5",
+    "astro": "^4.11.6",
     "astro-icon": "^1.1.0",
     "astro-seo": "^0.8.4",
     "gsap": "^3.12.5",
     "sharp": "^0.33.4",
-    "swiper": "^11.1.4",
-    "tailwindcss": "^3.4.4",
-    "vue": "^3.4.31"
+    "swiper": "^11.1.5",
+    "tailwindcss": "^3.4.6",
+    "vue": "^3.4.32"
   },
   "devDependencies": {
     "@types/facebook-js-sdk": "^3.3.11"
