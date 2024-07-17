@@ -2,8 +2,8 @@
 import Container from "@components/container.astro";
 import Sectionhead from "@components/home/sectionhead.astro";
 import Layout from "@layouts/Layout.astro";
-import { Image, getImage} from "astro:assets";
-import PalRingMediaImage from "@assets/project/pal_ring_media.jpg"
+import { Image, getImage } from "astro:assets";
+import PalRingMediaImage from "@assets/project/pal_ring_media.jpg";
 
 const imagesProject = await Astro.glob<{ default: ImageMetadata }>(
   "/src/assets/project/*.{jpeg,jpg,png,gif}"
@@ -11,9 +11,9 @@ const imagesProject = await Astro.glob<{ default: ImageMetadata }>(
 // console.log(imagesProject);
 
 const projects: {
-  title: string
-  description: string
-  image?: { default: ImageMetadata }
+  title: string;
+  description: string;
+  image?: ImageMetadata;
 }[] = [
   {
     title: "Pall ring media",
@@ -45,9 +45,9 @@ const projects: {
 ];
 
 projects.forEach((item, index) => {
-  item["image"] =  imagesProject[index]
-})
-
+  item["image"] = imagesProject[index].default;
+});
+// console.log(projects);
 ---
 
 <Layout title="Contact">
@@ -63,20 +63,17 @@ projects.forEach((item, index) => {
           projects.map((item) => (
             <div>
               <div class="flex justify-center items-center">
-                {
-                  item.image && (
-                    <Image
-                      data-fancybox="gallery"
-                      data-caption={item.title}
-                      data-src={item.image.default.src}
-                      src={item.image.default}
-                      alt={item.image.default.src}
-                      height={375}
-                      loading={"eager"}
-                      class="rounded-lg cursor-pointer"
-                    />
-                  )
-                }
+                {item.image && (
+                  <Image
+                    data-fancybox=""
+                    data-caption={item.title}
+                    src={item.image}
+                    alt={item.image.src}
+                    height={375}
+                    loading={"eager"}
+                    class="rounded-lg cursor-pointer image-click"
+                  />
+                )}
               </div>
               <h2 class="font-medium text-2xl text-gray-800 text-center mt-4">
                 {item.title}
