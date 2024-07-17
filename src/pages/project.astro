@@ -2,48 +2,52 @@
 import Container from "@components/container.astro";
 import Sectionhead from "@components/home/sectionhead.astro";
 import Layout from "@layouts/Layout.astro";
-import { Image } from "astro:assets";
+import { Image, getImage} from "astro:assets";
+import PalRingMediaImage from "@assets/project/pal_ring_media.jpg"
 
-const imagesProject = await import.meta.glob<{ default: ImageMetadata }>('/src/assets/project/*.{jpeg,jpg,png,gif}');
-console.log(imagesProject)
+const imagesProject = await Astro.glob<{ default: ImageMetadata }>(
+  "/src/assets/project/*.{jpeg,jpg,png,gif}"
+);
+// console.log(imagesProject);
 
-const getImage = async (image: string) => {
-    if (!imagesProject[image]) throw new Error(`"${image}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
-    return await imagesProject[image]()
-}
-
-const projects = [
-{
+const projects: {
+  title: string
+  description: string
+  image?: { default: ImageMetadata }
+}[] = [
+  {
     title: "Pall ring media",
-    description: "สำหรับระบบบำบัดน้ำเสีย โครงการโรบินสันกลาง จังหวัดภูเก็ต จำนวน 200,000 ชิ้น",
-    image: "/src/assets/project/pal_ring_media.jpg",
+    description:
+      "สำหรับระบบบำบัดน้ำเสีย โครงการโรบินสันกลาง จังหวัดภูเก็ต จำนวน 200,000 ชิ้น",
   },
   {
     title: "Cross flow media",
-    description: "ใช้ในระบบบำบัดน้ำเสีย โครงการ นิคมอุตสาหกรรมโรจน จ 2 โครงการ 8",
-    image: "/src/assets/project/cross_flow_media.jpg",
+    description:
+      "ใช้ในระบบบำบัดน้ำเสีย โครงการ นิคมอุตสาหกรรมโรจน จ 2 โครงการ 8",
   },
   {
     title: "Tube Settler",
-    description: "โครงการโรงผลิตน้ำประปาสามเสน กรุงเทพมหานคร ขนาด (ก.×ย.×ส.) 100 x 25 x 75 ซม.",
-    image: "/src/assets/project/tube_settler.jpg",
+    description:
+      "โครงการโรงผลิตน้ำประปาสามเสน กรุงเทพมหานคร ขนาด (ก.×ย.×ส.) 100 x 25 x 75 ซม.",
   },
   {
     title: "Tube Settler",
     description: "สีฟ้า ขนาด ยาว 3 เมตร 24 ก้อน และ ยาว 2.40 เมตร 144 ก้อน",
-    image: "/src/assets/project/tube_settler2.jpg",
   },
   {
     title: "Drift Eliminator รุ่น Blade type",
     description: "ขนาด เส้นผ่านศูนย์กลาง 178 เซนติเมตร",
-    image: "/src/assets/project/drift_eliminator.jpg",
   },
   {
     title: "Cross flow media และ fin filter",
     description: "สำหรับบำบัดตะกอนในบ่อปลาคราฟ",
-    image: "/src/assets/project/cross_flow_media_fin_filter.jpg",
-  }
-] 
+  },
+];
+
+projects.forEach((item, index) => {
+  item["image"] =  imagesProject[index]
+})
+
 ---
 
 <Layout title="Contact">
@@ -55,16 +59,44 @@ const projects = [
 
     <div class="py-8">
       <div class="grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12">
-        {projects.map((item) => <div>
-          <div class="flex justify-center items-center">
-            <Image src={getImage(item.image)} alt={item.image} height={375} class="rounded-lg" />
-          </div>
-          <h2 class="font-medium text-2xl text-gray-800 text-center mt-4">{item.title}</h2>
-          <p class="text-lg leading-relaxed text-slate-500 mt-3">
-            {item.description}
-          </p>
-        </div>)}
+        {
+          projects.map((item) => (
+            <div>
+              <div class="flex justify-center items-center">
+                {
+                  item.image && (
+                    <Image
+                      data-fancybox="gallery"
+                      data-caption={item.title}
+                      data-src={item.image.default.src}
+                      src={item.image.default}
+                      alt={item.image.default.src}
+                      height={375}
+                      loading={"eager"}
+                      class="rounded-lg cursor-pointer"
+                    />
+                  )
+                }
+              </div>
+              <h2 class="font-medium text-2xl text-gray-800 text-center mt-4">
+                {item.title}
+              </h2>
+              <p class="text-lg leading-relaxed text-slate-500 mt-3">
+                {item.description}
+              </p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </Container>
 </Layout>
+
+<script>
+  import { Fancybox } from "@fancyapps/ui";
+  import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
+  Fancybox.bind("[data-fancybox]", {
+    // Your custom options
+  });
+</script>
