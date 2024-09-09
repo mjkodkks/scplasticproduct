@@ -14,10 +14,12 @@ defineProps<Props>();
     :class="[
       isMobile ? 'opacity-100 visible flex flex-col' : 'opacity-0 invisible flex flex-col bg-white rounded-md shadow-md',
       customClass,
-    ]">
+    ]"
+    role="menu">
     <template v-for="item in menuitems" :key="item.title">
       <li
         v-if="item.children"
+        role="menuitem"
         :class="[isMobile ? 'relative flex flex-col gap-2 cursor-pointer p-2': 'relative flex gap-2 items-center cursor-pointer p-2 [&>.child-menu]:hover:visible [&>.child-menu]:hover:opacity-100 [&>.item-with-arrow>.arrow-icon]:hover:rotate-90']"
         class="hover:bg-primary-100 rounded-md [&>.item-with-arrow>.arrow-icon]:hover:transition-all [&>.item-with-arrow>.arrow-icon]:hover:duration-300">
         <div class="flex gap-2 item-with-arrow">
@@ -43,7 +45,7 @@ defineProps<Props>();
           :menuitems="item.children"
           :class="[isMobile ? 'child-menu' : 'child-menu absolute left-[100%] top-0 min-w-[200px] transition-all duration-300']"></Dropdown>
       </li>
-      <li v-else class="text-black p-2 hover:bg-primary-100 rounded-md">
+      <li v-else class="text-black p-2 hover:bg-primary-100 rounded-md" role="menuitem">
        <a :href="item.path">{{ item.title }}</a> 
       </li>
     </template>
