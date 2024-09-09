@@ -1,4 +1,4 @@
-import { defineConfig, squooshImageService } from "astro/config";
+import { defineConfig, sharpImageService } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
@@ -10,9 +10,9 @@ import vue from "@astrojs/vue";
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: "https://www.scplasticproduct.com",
+  site: "https://scplasticproduct.pages.dev",
   image: {
-    service: squooshImageService()
+    service: sharpImageService(),
   },
   integrations: [tailwind(), mdx(), sitemap(), icon(), partytown(), vue({ devtools: true })],
   i18n: {
