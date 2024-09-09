@@ -1,0 +1,50 @@
+---
+import Button from "./ui/button.astro";
+import { ArrowUp } from "./ui/icons";
+const text = "Back to top";
+---
+
+<div
+  class="fixed z-10 bottom-4 right-4 opacity-0 invisible transition-all duration-500 group"
+  id="back-to-top">
+  <span
+    class="group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 
+    translate-x-4 transition-all duration-500 opacity-0 
+    text-center w-[120px] absolute -left-[122px] top-1/2 -translate-y-1/2 
+    tooltip invisible rounded shadow-lg p-2 bg-slate-700 text-white"
+    >{text}</span
+  >
+  <Button title={text} class="items-center gap-3 !p-2"
+    ><ArrowUp class="w-6 h-6" /></Button
+  >
+</div>
+
+<script>
+  const backToTopBtn = document.querySelector("#back-to-top");
+  const scrollTrigger = 300;
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > scrollTrigger) {
+      backToTopBtn?.classList.remove("opacity-0");
+      backToTopBtn?.classList.add("opacity-100");
+      backToTopBtn?.classList.remove("translate-y-2");
+      backToTopBtn?.classList.add("translate-y-0");
+      backToTopBtn?.classList.remove("invisible");
+      backToTopBtn?.classList.add("flex");
+    } else {
+      if (!backToTopBtn?.classList.contains("opacity-0")) {
+        backToTopBtn?.classList.add("opacity-0");
+      }
+      backToTopBtn?.classList.remove("opacity-100");
+      backToTopBtn?.classList.add("translate-y-2");
+      backToTopBtn?.classList.add("invisible");
+    }
+  });
+
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener("click", () => {
+      if (window.scrollY > scrollTrigger) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+  }
+</script>

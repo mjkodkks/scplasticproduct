@@ -1,1 +1,4 @@
-export { default as Tick } from "./tick.astro";
+import Tick from "./tick.astro";
+import ArrowUp from "./arrowUp.astro";
+
+export { Tick, ArrowUp }
