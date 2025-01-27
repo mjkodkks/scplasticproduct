@@ -8,7 +8,7 @@ const contactList = await getCollection("contact");
 const currentLocale = Astro.currentLocale;
 
 const contactLocaleData = contactList.find((page) => {
-  const [lang, ...slug] = page.slug.split("/");
+  const [lang, ...slug] = page.id.split("/");
   return lang === currentLocale ? page : null;
 });
 ---

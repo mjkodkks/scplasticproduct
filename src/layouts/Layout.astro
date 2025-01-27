@@ -2,6 +2,7 @@
 import { SEO } from "astro-seo";
 import Footer from "@components/home/footer.astro";
 import Navbar from "@components/navbar/navbar.vue";
+import "../styles/tailwind.css";
 import "../global.css";
 import "@fontsource/anuphan/300.css";
 import "@fontsource/anuphan/400.css";
@@ -32,7 +33,7 @@ const contactList = await getCollection("contact");
 const currentLocale = Astro.currentLocale;
 
 const contactLocaleData = contactList.find((page) => {
-  const [lang, ...slug] = page.slug.split("/");
+  const [lang, ...slug] = page.id.split("/");
   return lang === currentLocale ? page : null;
 });
 

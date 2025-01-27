@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import {  } from "module";
 import Dropdown from "./dropdown.vue";
 import type { MenuItem } from "app";
 interface Props {

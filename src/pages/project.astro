@@ -3,50 +3,59 @@ import Container from "@components/container.astro";
 import Sectionhead from "@components/home/sectionhead.astro";
 import Layout from "@layouts/Layout.astro";
 import { Image, getImage } from "astro:assets";
-import PalRingMediaImage from "@assets/project/pal_ring_media.jpg";
 
-const imagesProject = await Astro.glob<{ default: ImageMetadata }>(
+const imagesProject = await import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/project/*.{jpeg,jpg,png,gif}"
 );
-// console.log(imagesProject);
+console.log(imagesProject);
+
+const path = "/src/assets/project/"
 
 const projects: {
   title: string;
   description: string;
-  image?: ImageMetadata;
+  image: ImageMetadata;
 }[] = [
   {
     title: "Pall ring media",
     description:
       "สำหรับระบบบำบัดน้ำเสีย โครงการโรบินสันกลาง จังหวัดภูเก็ต จำนวน 200,000 ชิ้น",
+    image: (await imagesProject[path + "pal_ring_media.jpg"]()).default,
   },
   {
     title: "Cross flow media",
     description:
       "ใช้ในระบบบำบัดน้ำเสีย โครงการ นิคมอุตสาหกรรมโรจน จ 2 โครงการ 8",
+    image: (await imagesProject[path + "cross_flow_media.jpg"]()).default,
   },
   {
     title: "Tube Settler",
     description:
       "โครงการโรงผลิตน้ำประปาสามเสน กรุงเทพมหานคร ขนาด (ก.×ย.×ส.) 100 x 25 x 75 ซม.",
+    image: (await imagesProject[path + "tube_settler.jpg"]()).default,
   },
   {
     title: "Tube Settler",
     description: "สีฟ้า ขนาด ยาว 3 เมตร 24 ก้อน และ ยาว 2.40 เมตร 144 ก้อน",
+    image: (await imagesProject[path + "tube_settler2.jpg"]()).default,
   },
   {
     title: "Drift Eliminator รุ่น Blade type",
     description: "ขนาด เส้นผ่านศูนย์กลาง 178 เซนติเมตร",
+    image: (await imagesProject[path + "drift_eliminator.jpg"]()).default,
   },
   {
     title: "Cross flow media และ fin filter",
     description: "สำหรับบำบัดตะกอนในบ่อปลาคราฟ",
+    image: (await imagesProject[path + "cross_flow_media_fin_filter.jpg"]()).default,
   },
 ];
 
-projects.forEach((item, index) => {
-  item["image"] = imagesProject[index].default;
-});
+// console.log(projects)
+
+// projects.forEach(async (item, index) => {
+//   item["image"] = (await imagesProject[index]()).default;
+// });
 // console.log(projects);
 ---
 
@@ -62,19 +71,22 @@ projects.forEach((item, index) => {
         {
           projects.map((item) => (
             <div>
-              <div class="flex justify-center items-center">
+              <a class="flex justify-center items-center"
+                data-fancybox="gallery"
+                data-caption={item.title}
+                href={item.image.src}
+              >
                 {item.image && (
                   <Image
-                    data-fancybox=""
-                    data-caption={item.title}
                     src={item.image}
                     alt={item.image.src}
                     height={375}
-                    loading={"eager"}
+                    width={500}
+                    loading={"lazy"}
                     class="rounded-lg cursor-pointer image-click"
                   />
                 )}
-              </div>
+              </a>
               <h2 class="font-medium text-2xl text-gray-800 text-center mt-4">
                 {item.title}
               </h2>
@@ -95,5 +107,10 @@ projects.forEach((item, index) => {
 
   Fancybox.bind("[data-fancybox]", {
     // Your custom options
+    on: {
+    "error": (fancybox, eventName) => {
+      console.log(`Fancybox eventName: ${eventName}`);
+    },
+  },
   });
 </script>

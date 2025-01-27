@@ -11,25 +11,25 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^3.1.5",
-    "@astrojs/partytown": "^2.1.2",
-    "@astrojs/sitemap": "^3.1.6",
-    "@astrojs/tailwind": "^5.1.0",
-    "@astrojs/vue": "^4.5.0",
+    "@astrojs/mdx": "^4.0.7",
+    "@astrojs/partytown": "^2.1.3",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/vue": "^5.0.6",
     "@fancyapps/ui": "^5.0.36",
-    "@fontsource/anuphan": "^5.0.15",
-    "@tailwindcss/typography": "^0.5.15",
-    "astro": "^4.15.4",
-    "astro-icon": "^1.1.1",
+    "@fontsource/anuphan": "^5.1.1",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^5.1.9",
+    "astro-icon": "^1.1.5",
     "astro-seo": "^0.8.4",
-    "gsap": "^3.12.5",
+    "gsap": "^3.12.7",
     "sharp": "^0.33.5",
-    "swiper": "^11.1.12",
-    "tailwindcss": "^3.4.10",
-    "vue": "^3.5.3"
+    "swiper": "^11.2.1",
+    "tailwindcss": "^4.0.0",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
     "@types/facebook-js-sdk": "^3.3.12"
   },
-  "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
+  "packageManager": "pnpm@9.14.2+sha512.6e2baf77d06b9362294152c851c4f278ede37ab1eba3a55fda317a4a17b209f4dbb973fb250a77abc463a341fcb1f17f17cfa24091c4eb319cda0d9b84278387"
 }
