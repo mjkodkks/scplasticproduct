@@ -38,7 +38,7 @@ const products = [
   <div class="container mx-auto grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8">
     {
       products.map((item, i) => (
-        <a class:list={["product", `product-${i + 1}`]} class="flex justify-center flex-col items-center group cursor-pointer shadow-sm transition-all duration-300 py-4 overflow-hidden">
+        <a class:list={["product", `product-${i + 1}`]} class="flex justify-center flex-col items-center group cursor-pointer transition-all duration-300 py-4 overflow-hidden">
           <h3 class="text-center my-2 text-lg font-bold">{item.title}</h3>
           <Image
             src={item.imageSrc}

@@ -18,13 +18,11 @@ const contactLocaleData = contactList.find((page) => {
   <Container>
     <Sectionhead>
       <Fragment slot="title">ติดต่อเรา</Fragment>
-      <Fragment slot="desc"></Fragment>
+      <Fragment slot="desc">Address</Fragment>
     </Sectionhead>
 
     <div style="width: 100%">
-      <iframe width="100%" height="600" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=sc%20plastic%20product+(SC%20plastic%20product)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
-        <a href="https://www.gps.ie/">gps devices</a>
-      </iframe>
+      <iframe width="100%" height="600" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=sc%20plastic%20product+(SC%20plastic%20product)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
     </div>
 
     <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-4xl mt-16">
@@ -36,12 +34,12 @@ const contactLocaleData = contactList.find((page) => {
             <span>{contactLocaleData?.data.address}</span>
           </div><div class="flex items-center mt-2 space-x-2 text-gray-600">
             <div class="text-gray-400 w-4 h-4" /><a
-              href="mailto:hello@astroshipstarter.com"
-              >hello@astroshipstarter.com</a
+              href={`mailto:${contactLocaleData?.data.email}`}
+              >{contactLocaleData?.data.email}</a
             >
           </div><div class="flex items-center mt-2 space-x-2 text-gray-600">
             <div class="text-gray-400 w-4 h-4" /><a
-              href="tel:+1 (987) 4587 899">+1 (987) 4587 899</a
+              href={`tel:${contactLocaleData?.data.email}`}>{contactLocaleData?.data.tels}</a
             >
           </div>
         </div>
