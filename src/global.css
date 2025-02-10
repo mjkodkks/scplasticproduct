@@ -2,6 +2,10 @@
   --header-height: 7rem;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   font-family: "Anuphan", sans-serif;
   background: white;
@@ -9,10 +13,3 @@ body {
   line-height: inherit;
 }
 
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  margin: auto;
-  float: none !important;
-}

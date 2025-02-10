@@ -3,7 +3,6 @@ import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
-import partytown from '@astrojs/partytown';
 import vue from "@astrojs/vue";
 
 // https://astro.build/config
@@ -13,7 +12,7 @@ export default defineConfig({
   image: {
     service: sharpImageService(),
   },
-  integrations: [mdx(), sitemap(), icon(), partytown(), vue({ devtools: true })],
+  integrations: [mdx(), sitemap(), icon(), vue({ devtools: true })],
   i18n: {
     defaultLocale: "th",
     locales: ["th", "en"]

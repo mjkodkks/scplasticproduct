@@ -103,7 +103,8 @@ const makeTitle = title
     </TopBar>
     <div class="wait-navbar">
       <Navbar
-        client:only="vue"
+        client:visible
+        client:only
         contactLocaleData={contactLocaleData}
         menuitems={menuitems}>
         <Image
