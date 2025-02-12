@@ -75,10 +75,10 @@ const makeTitle = title
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
     <SEO
       title={makeTitle}
@@ -116,7 +116,11 @@ const makeTitle = title
           class="bg-white rounded-2xl mx-0 lg:mx-auto"
           slot={"logo"}
         />
-        <Link style="primary" href="https://line.me/ti/p/0ivf_qmCuf" target={"_blank"} slot={"menu-right"}>
+        <Link
+          style="primary"
+          href="https://line.me/ti/p/0ivf_qmCuf"
+          target={"_blank"}
+          slot={"menu-right"}>
           ขอใบเสนอราคา
         </Link>
       </Navbar>
@@ -124,7 +128,7 @@ const makeTitle = title
     <main>
       <slot />
     </main>
-    <BackToTop></BackToTop>
+    <BackToTop />
     <Footer />
     <style is:global>
       /* Improve Page speed */
@@ -142,5 +146,8 @@ const makeTitle = title
       }
     </style>
     <div id="fb-root"></div>
+    <div id="cc-root"></div>
+    <script src="../utils/cookie-consent.ts">
+    </script>
   </body>
 </html>
