@@ -35,7 +35,7 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="w-full sticky top-0 z-20 bg-gradient-to-r from-primary-950 to-primary-900 transition-all duration-500"
+    class="w-full sticky top-0 z-20 bg-gradient-to-r from-primary-900 to-[#1D9FFF] transition-all duration-500"
     style="height: var(--header-height)"
     id="header">
     <header
