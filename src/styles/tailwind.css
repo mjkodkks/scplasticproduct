@@ -17,9 +17,4 @@
     --color-secondary-50: #F8F8F8;
 }
 
-
-@source "../components/navbar/navbar.vue";
-@source "../components/navbar/menu.vue";
-@source "../components/navbar/dropdown.vue";
-
 @plugin '@tailwindcss/typography';
