@@ -17,9 +17,6 @@ importers:
       '@astrojs/vue':
         specifier: ^5.0.6
         version: 5.0.6(@types/node@22.13.4)(astro@5.3.0(@types/node@22.13.4)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.8)(typescript@5.7.3)(yaml@2.7.0))(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.8)(vue@3.5.13(typescript@5.7.3))(yaml@2.7.0)
-      '@fancyapps/ui':
-        specifier: ^5.0.36
-        version: 5.0.36
       '@fontsource/anuphan':
         specifier: ^5.1.1
         version: 5.1.1
@@ -439,9 +436,6 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
-
-  '@fancyapps/ui@5.0.36':
-    resolution: {integrity: sha512-GMygQzp1MBTFNTT6AzpbL6pXTD6bTxwjmmpI1fe8Ozmmiseu8/g82Sudl1YhcbZmS4bJgaBOF5THDFGpXQ1fDw==}
 
   '@fontsource/anuphan@5.1.1':
     resolution: {integrity: sha512-NSa7ZL9uU83/nINqYIJow/8s8KUtBV/hvFO79MBp0Tb78nKY5Xo3vtZMRnwRjcbwDsdHhTu68REk7+QfQ1GRFQ==}
@@ -3437,8 +3431,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.24.2':
     optional: true
-
-  '@fancyapps/ui@5.0.36': {}
 
   '@fontsource/anuphan@5.1.1': {}
 

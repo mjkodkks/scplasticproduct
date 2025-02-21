@@ -15,6 +15,7 @@ import SocialGroup from "@components/socialGroup.astro";
 import TopBar from "@components/navbar/topbar.astro";
 import Link from "@components/ui/link.astro";
 import BackToTop from "@components/backToTop.astro";
+import { ClientRouter } from 'astro:transitions';
 
 export interface Props {
   title: string;
@@ -80,6 +81,8 @@ const makeTitle = title
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
+
     <SEO
       title={makeTitle}
       description="จำหน่ายสินค้าพลาสติกมีเดีย สำหรับระบบบำบัดน้ำเสีย ดักจับไอน้ำ และแผ่นช่วยตกตะกอน"

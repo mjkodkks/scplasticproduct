@@ -8,7 +8,7 @@ const imagesProject = await import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/project/*.{jpeg,jpg,png,gif}"
 );
 
-const path = "/src/assets/project/"
+const path = "/src/assets/project/";
 
 const projects: {
   title: string;
@@ -46,7 +46,8 @@ const projects: {
   {
     title: "Cross flow media และ fin filter",
     description: "สำหรับบำบัดตะกอนในบ่อปลาคราฟ",
-    image: (await imagesProject[path + "cross_flow_media_fin_filter.jpg"]()).default,
+    image: (await imagesProject[path + "cross_flow_media_fin_filter.jpg"]())
+      .default,
   },
 ];
 
@@ -70,22 +71,20 @@ const projects: {
         {
           projects.map((item) => (
             <div>
-              <a class="flex justify-center items-center"
-                data-fancybox="gallery"
-                data-caption={item.title}
-                href={item.image.src}
-              >
+              <div
+                class="image-block flex justify-center items-center hover:transform hover:scale-105 transition-transform"
+                data-url={item.image.src}>
                 {item.image && (
                   <Image
                     src={item.image}
                     alt={item.image.src}
                     height={375}
                     width={500}
-                    loading={"lazy"}
+                    loading={"eager"}
                     class="rounded-lg cursor-pointer image-click"
                   />
                 )}
-              </a>
+              </div>
               <h2 class="font-medium text-2xl text-gray-800 text-center mt-4">
                 {item.title}
               </h2>
@@ -97,19 +96,115 @@ const projects: {
         }
       </div>
     </div>
+    <dialog id="imageDialogRoot">
+      <img src="" alt="" id="imageModal" class="w-full h-full" />
+      <button id="closeDialog">X</button>
+    </dialog>
   </Container>
 </Layout>
 
 <script>
-  import { Fancybox } from "@fancyapps/ui";
-  import "@fancyapps/ui/dist/fancybox/fancybox.css";
+  const imageDialogRoot = document.getElementById(
+    "imageDialogRoot"
+  ) as HTMLDialogElement;
+  const imageModal = document.getElementById("imageModal") as HTMLImageElement;
+  const closeDialog = document.getElementById(
+    "closeDialog"
+  ) as HTMLButtonElement;
+  const imageBlocks = document.querySelectorAll(".image-block");
 
-  Fancybox.bind("[data-fancybox]", {
-    // Your custom options
-    on: {
-    "error": (fancybox, eventName) => {
-      console.log(`Fancybox eventName: ${eventName}`);
-    },
-  },
+  imageDialogRoot.addEventListener("click", (e) => {
+    console.log(e.target);
+    if (e.target === imageDialogRoot) {
+      closeDialogHandler();
+    }
+  });
+
+  for (const imageBlock of imageBlocks) {
+    imageBlock.addEventListener("click", (e) => {
+      if (!e.target) return;
+      const url = imageBlock.getAttribute("data-url");
+      openDialog(url);
+    });
+  }
+
+  function openDialog(src) {
+    if (imageModal && imageDialogRoot) {
+      imageModal.src = src;
+      imageDialogRoot.showModal();
+      requestAnimationFrame(() => imageDialogRoot.classList.add("fadein"));
+    }
+  }
+
+  closeDialog.addEventListener("click", closeDialogHandler);
+
+  function closeDialogHandler() {
+    if (imageDialogRoot) {
+      imageDialogRoot.classList.add("fadeout");
+    }
+  }
+
+  imageDialogRoot.addEventListener("animationend", (evt) => {
+    console.log(evt);
+    if (evt.animationName === "fadeout") {
+      imageDialogRoot.classList.remove("fadeout");
+      imageDialogRoot.close();
+    }
   });
 </script>
+
+<style scoped>
+  dialog {
+    position: fixed;
+    inset: 0 0 0 0;
+    margin: auto;
+    background: #f9f9f9;
+    height: 100%;
+  }
+
+  dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  #closeDialog {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .fadein {
+    animation: fadein 0.25s ease-in forwards;
+  }
+
+  .fadeout {
+    animation: fadeout 0.25s ease-in forwards;
+  }
+
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeout {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    dialog {
+      height: fit-content;
+    }
+  }
+</style>
