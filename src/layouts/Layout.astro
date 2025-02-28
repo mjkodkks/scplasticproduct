@@ -24,7 +24,7 @@ export interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
 const resolvedImageWithDomain = new URL(
-  "/opengraph.jpg",
+  "/opengraph.webp",
   Astro.site
 ).toString();
 
@@ -81,7 +81,7 @@ const makeTitle = title
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
-    <ClientRouter />
+    <!-- <ClientRouter /> -->
 
     <SEO
       title={makeTitle}
@@ -95,7 +95,8 @@ const makeTitle = title
           image: resolvedImageWithDomain,
         },
         image: {
-          alt: "Astroship Homepage Screenshot",
+          alt: "SC media products",
+          url: resolvedImageWithDomain,
         },
       }}
     />

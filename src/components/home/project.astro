@@ -9,7 +9,7 @@ const wording1 = `ตัวอย่างผลงาน ที่ลูกค�
 const wording2 = `เราคือผู้ผลิตและจำหน่ายพลาสติกมีเดียที่มีคุณภาพ ผลิตและจำหน่ายสินค้าประเภทตัวกลางพลาสติก 
 ที่ใช้งานสำหรับในระบบบำบัดน้ำเสีย, ระบบบำบัดอากาศ, ระบบผลิตน้ำดี และ ดักไอน้ำ รวมทั้งรับขึ้นรูปพลาสติกบรรจุภัณฑ์/รับทำแม่พิมพ์ขึ้นรูปพลาสติกและให้คำปรึกษาสำหรับผลิตภัณฑ์ด้านสิ่งแวดล้อม`;
 
-const productList = [
+const projectList = [
   {
     image: Image1,
     title: "Pal Ring Media",
@@ -32,18 +32,21 @@ const productList = [
         {wording1}
       </h2>
     </div>
-    <div class="grid lg:grid-cols-3 grid-cols-1 justify-center lg:gap-0 gap-8 lg:rounded-3xl overflow-hidden lg:shadow-lg">
+    <div
+      class="grid lg:grid-cols-3 grid-cols-1 justify-center lg:gap-0 gap-8 lg:rounded-3xl overflow-hidden lg:shadow-lg">
       {
-        productList.map((item) => (
-          <div class="">
-            <Image
-              src={item.image}
-              alt={item.title}
-              class="w-full lg:rounded-none rounded-2xl"
-              width={500}
-              height={375}
-              loading={"lazy"}
-            />
+        projectList.map((item, i) => (
+          <div class:list={["project", `project-${i + 1}`]} class="group overflow-hidden">
+            <a href="/project">
+              <Image
+                src={item.image}
+                alt={item.title}
+                class="w-full lg:rounded-none rounded-2xl group-hover:scale-[1.1] transition-transform duration-300"
+                width={500}
+                height={375}
+                loading={"lazy"}
+              />
+            </a>
           </div>
         ))
       }
@@ -53,3 +56,22 @@ const productList = [
     </div>
   </div>
 </section>
+
+<script>
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+  let t1 = gsap.timeline(
+    {
+      scrollTrigger: {
+      trigger: ".project",
+      start: "-50% center",
+      end: "200% center",
+    },
+    }
+  )
+
+  t1.from(".project-1", {x: -20, opacity: 0.5, duration: 0.3}).to(".project-1", {x:0 , opacity: 1, duration: 0})
+  t1.from(".project-2", {y: 20, opacity: 0.5, duration: 0.3}).to(".project-2", {y: 0, opacity: 1, duration: 0})
+  t1.from(".project-3", {x: 20, opacity: 0.5, duration: 0.3}).to(".project-3", {x: 0, opacity: 1, duration: 0})
+</script>

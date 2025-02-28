@@ -114,7 +114,6 @@ const projects: {
   const imageBlocks = document.querySelectorAll(".image-block");
 
   imageDialogRoot.addEventListener("click", (e) => {
-    console.log(e.target);
     if (e.target === imageDialogRoot) {
       closeDialogHandler();
     }
@@ -140,12 +139,12 @@ const projects: {
 
   function closeDialogHandler() {
     if (imageDialogRoot) {
+      imageDialogRoot.classList.remove("fadein");
       imageDialogRoot.classList.add("fadeout");
     }
   }
 
   imageDialogRoot.addEventListener("animationend", (evt) => {
-    console.log(evt);
     if (evt.animationName === "fadeout") {
       imageDialogRoot.classList.remove("fadeout");
       imageDialogRoot.close();
