@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets";
+import ChatIcon from "@assets/service/chat.svg?raw";
+import DesignIcon from "@assets/service/design.svg?raw";
+import MoldIcon from "@assets/service/mold.svg?raw";
+
+const services = [
+  {
+    title: "รับปรึกษา",
+    description: `ให้คำปรึกษาด้านการผลิตบรรจุภัณฑ์และชิ้นส่วนพลาสติก \n
+    ตั้งแต่การเลือกวัสดุ กระบวนการผลิต จนถึงการออกแบบ \n
+    พร้อมบริการผลิตสินค้าตามจำนวนที่ต้องการ เพื่อให้เหมาะสมกับการใช้งานและต้นทุนที่คุ้มค่า`,
+    imageSrc: ChatIcon,
+  },
+  {
+    title: "ออกแบบ",
+    description: `ให้บริการออกแบบผลิตภัณฑ์สำหรับงานบรรจุภัณฑ์และชิ้นส่วนพลาสติก \n
+    ด้วยเทคโนโลยีการออกแบบ 3D และซอฟต์แวร์มาตรฐานอุตสาหกรรม \n
+    เพื่อให้ได้ดีไซน์ที่สวยงาม ฟังก์ชันครบถ้วน และสามารถผลิตได้จริง`,
+    imageSrc: DesignIcon,
+  },
+  {
+    title: "รับทำแม่พิมพ์ขึ้นรูปพลาสติก",
+    description: `รับทำแม่พิมพ์สำหรับงานขึ้นรูปพลาสติกโดย \n
+    การฉีด (Injection Thermoforming) และ\n
+    ระบบสุญญากาศ (Vacuum Thermoforming)`,
+    imageSrc: MoldIcon,
+  },
+];
+
+---
+
+<div class="py-40 bg-primary-800">
+  <h1 class="mb-8 text-4xl font-bold text-center text-white">บริการของเรา</h1>
+  <div class="container grid grid-cols-1 gap-8 mx-auto lg:grid-cols-3 md:grid-cols-2">
+    {
+      services.map((item, i) => (
+        <div class:list={["service", `service-${i + 1}`]} class="flex flex-col items-center px-4 py-8 overflow-hidden transition-all duration-300 bg-white rounded-md shadow-lg group hover:bg-primary-950 hover:text-white hover:shadow-xl">
+          <div class="text-primary-800 h-[100px] group-hover:text-white">
+            <Fragment set:html={item.imageSrc}></Fragment>
+          </div>
+          <div class="mt-4 text-2xl font-bold">{ item.title }</div>
+          <div class="mt-2 text-center text-primary-950 group-hover:text-white">{ item.description }</div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+  let t1 = gsap.timeline(
+    {
+      scrollTrigger: {
+      trigger: ".service",
+      start: "-50% center",
+      end: "200% center",
+    },
+    }
+  )
+
+  t1.from(".service-1", {y: 20, opacity: 0.5, duration: 0.3}).to(".service-1", {y: 0, opacity: 1, duration: 0})
+  t1.from(".service-2", {y: 20, opacity: 0.5, duration: 0.3}).to(".service-2", {y: 0, opacity: 1, duration: 0})
+  t1.from(".service-3", {y: 20, opacity: 0.5, duration: 0.3}).to(".service-3", {y: 0, opacity: 1, duration: 0})
+  t1.from(".service-4", {y: 20, opacity: 0.5, duration: 0.3}).to(".service-4", {y: 0, opacity: 1, duration: 0})
+</script>
