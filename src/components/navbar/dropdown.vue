@@ -20,11 +20,13 @@ defineProps<Props>();
       <li
         v-if="item.children"
         role="menuitem"
-        :class="[isMobile ? 'relative flex flex-col gap-2 cursor-pointer p-2': 'relative flex gap-2 items-center cursor-pointer p-2 [&>.child-menu]:hover:visible [&>.child-menu]:hover:opacity-100 [&>.item-with-arrow>.arrow-icon]:hover:rotate-90']"
-        class="hover:bg-primary-100 rounded-md [&>.item-with-arrow>.arrow-icon]:hover:transition-all [&>.item-with-arrow>.arrow-icon]:hover:duration-300">
-        <div class="flex gap-2 item-with-arrow">
+        :class="[isMobile ? 
+        'flex flex-col gap-2 cursor-pointer p-2' : 
+        'flex gap-2 w-full items-center [&:hover_>_.child-menu]:visible [&:hover_>_.child-menu]:opacity-100']"
+        class="relative rounded-md hover:bg-primary-100">
+        <div class="flex justify-between w-full gap-2 p-2 item-with-arrow">
           <div class="text-black text">{{ item.title }}</div>
-          <div class="text-black grid place-content-center arrow-icon rotate-0 transition-all duration-300">
+          <div class="grid text-black transition-all duration-300 rotate-0 place-content-center arrow-icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="1em"
@@ -43,10 +45,10 @@ defineProps<Props>();
         <Dropdown
           :is-mobile="isMobile"
           :menuitems="item.children"
-          :class="[isMobile ? 'child-menu' : 'child-menu absolute left-[100%] top-0 min-w-[200px] transition-all duration-300']"></Dropdown>
+          :class="[isMobile ? 'child-menu' : 'child-menu absolute left-[100%] top-0 min-w-[max-content] transition-all duration-300']"></Dropdown>
       </li>
-      <li v-else class="text-black p-2 hover:bg-primary-100 rounded-md" role="menuitem">
-       <a :href="item.path">{{ item.title }}</a> 
+      <li v-else class="text-black rounded-md hover:bg-primary-100" role="menuitem">
+       <a :href="item.path" class="flex w-full h-full p-2">{{ item.title }}</a> 
       </li>
     </template>
   </ul>
