@@ -1,4 +1,4 @@
-import { defineConfig, sharpImageService } from "astro/config";
+import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
@@ -10,7 +10,12 @@ export default defineConfig({
   output: 'static',
   site: "https://scplasticproduct.pages.dev",
   image: {
-    service: sharpImageService(),
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+      config: {
+        limitInputPixels: false,
+      },
+    },
   },
   integrations: [mdx(), sitemap(), icon(), vue({ devtools: true })],
   i18n: {
