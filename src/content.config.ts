@@ -1,5 +1,6 @@
 // 1. Import utilities from `astro:content`
-import { z, defineCollection } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 import { glob, file } from "astro/loaders";
 
 // 2. Define your collection(s)
@@ -25,7 +26,7 @@ const contactCollection = defineCollection({
   schema: z.object({
     address: z.string(),
     tels: z.array(z.string()),
-    email: z.string().email(),
+    email: z.email(),
   }),
 });
 

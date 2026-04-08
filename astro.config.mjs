@@ -17,7 +17,7 @@ export default defineConfig({
       },
     },
   },
-  integrations: [mdx(), sitemap(), icon(), vue({ devtools: true })],
+  integrations: [mdx(), sitemap(), icon(), vue()],
   i18n: {
     defaultLocale: "th",
     locales: ["th", "en"]
@@ -26,6 +26,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   experimental: {
-    svg: true,
+    svgo: true,
   }
 });
