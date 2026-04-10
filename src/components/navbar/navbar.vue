@@ -42,7 +42,7 @@ onUnmounted(() => {
       class="block lg:flex flex-col lg:flex-row lg:justify-between lg:items-center h-full">
       <div
         class="flex w-full lg:w-auto items-center justify-between px-4 h-full">
-        <a href="/" class="text-lg w-[200px]">
+        <a href="/" class="text-lg w-[200px]" data-astro-prefetch>
           <slot name="logo"></slot>
         </a>
         <div

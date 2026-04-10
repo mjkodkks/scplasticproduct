@@ -21,7 +21,7 @@ defineProps<Props>();
         <Dropdown :menuitems="item.children" class="group-hover/parent:visible group-hover/parent:opacity-100 absolute left-[10%] top-[80%] min-w-[200px] transition-all duration-300"></Dropdown>
       </button>
       <li v-else class="text-white" role="menuitem" :aria-label="item.title" aria-level="1">
-        <a :href="item.path">{{ item.title }}</a> 
+        <a :href="item.path" data-astro-prefetch>{{ item.title }}</a> 
       </li>
     </template>
   </ul>

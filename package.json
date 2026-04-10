@@ -9,12 +9,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "prd": "astro build && astro preview",
-    "astro": "astro",
-    "clean": "npx rimraf node_modules pnpm-lock.yaml dist .astro .cache"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/sitemap": "3.7.2",
     "@astrojs/vue": "^6.0.1",
     "@fontsource/anuphan": "^5.2.5",
     "@tailwindcss/typography": "^0.5.16",
@@ -32,7 +31,7 @@
   "devDependencies": {
     "@types/facebook-js-sdk": "^3.3.12"
   },
-  "packageManager": "pnpm@10.33.0+sha512.EFaLtKavtYyes2MNqQzJUWQXq+vT+rvmc58K55VyjaFJHp21pUTHatjrdXD1xLs9bGN7LLQb/c20f6gjyGSTGQ==",
+  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",

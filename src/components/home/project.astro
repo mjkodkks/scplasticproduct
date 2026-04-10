@@ -36,7 +36,7 @@ const projectList = [
           <div
             class:list={["project", `project-${i + 1}`]}
             class="overflow-hidden group">
-            <a href="/project">
+            <a href="/project" data-astro-prefetch>
               <Image
                 src={item.image}
                 alt={item.title}

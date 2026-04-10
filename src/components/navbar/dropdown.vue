@@ -48,7 +48,7 @@ defineProps<Props>();
           :class="[isMobile ? 'child-menu' : 'child-menu absolute left-[100%] top-0 min-w-[max-content] transition-all duration-300']"></Dropdown>
       </li>
       <li v-else class="text-black rounded-md hover:bg-primary-100" role="menuitem">
-       <a :href="item.path" class="flex w-full h-full p-2">{{ item.title }}</a> 
+       <a :href="item.path" class="flex w-full h-full p-2" data-astro-prefetch>{{ item.title }}</a> 
       </li>
     </template>
   </ul>

@@ -1,0 +1,196 @@
+---
+import type { MenuItem } from "app";
+
+interface Props {
+  menuitems: MenuItem[];
+  contactLocaleData?: any;
+}
+
+const { menuitems } = Astro.props;
+---
+
+<div
+  class="w-full sticky top-0 z-20 bg-gradient-to-r from-primary-900 to-[#1D9FFF] transition-all duration-500"
+  style="height: var(--header-height)"
+  id="header">
+  <header class="flex items-center justify-between h-full px-4">
+    <!-- Logo -->
+    <a href="/" class="text-lg w-[200px]" data-astro-prefetch>
+      <slot name="logo" />
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex gap-3 items-center" role="navigation" aria-label="Main">
+      {menuitems.map((item) =>
+        item.children ? (
+          <div class="relative group/nav">
+            <button
+              class="text-white flex gap-1 items-center cursor-pointer"
+              aria-haspopup="true">
+              <span>{item.title}</span>
+              <svg
+                class="group-hover/nav:rotate-90 transition-all duration-300"
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m10 17l5-5l-5-5" />
+              </svg>
+            </button>
+            <ul
+              class="absolute top-full left-0 min-w-[200px] bg-white rounded-md shadow-md opacity-0 invisible group-hover/nav:opacity-100 group-hover/nav:visible transition-all duration-300 flex flex-col"
+              role="menu">
+              {item.children.map((child) => (
+                <li role="menuitem" class="hover:bg-primary-100 rounded-md">
+                  <a href={child.path} class="block p-2 text-black" data-astro-prefetch>
+                    {child.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <a
+            href={item.path}
+            class="text-white hover:text-primary-100 transition-colors"
+            data-astro-prefetch>
+            {item.title}
+          </a>
+        )
+      )}
+    </nav>
+
+    <!-- Right slot (desktop) -->
+    <div class="w-[200px] hidden lg:flex justify-end">
+      <slot name="menu-right" />
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="menuMobileBtn"
+      class="block lg:hidden text-white"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="menu-mobile">
+      <svg
+        fill="currentColor"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          id="icon-open"
+          fill-rule="evenodd"
+          d="M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z" />
+        <path
+          id="icon-close"
+          class="hidden"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M18.278 16.864a1 1 0 01-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 01-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 011.414-1.414l4.829 4.828 4.828-4.828a1 1 0 111.414 1.414l-4.828 4.829 4.828 4.828z" />
+      </svg>
+    </button>
+  </header>
+</div>
+
+<slot />
+
+<!-- Mobile menu -->
+<div
+  id="menu-mobile"
+  class="lg:hidden sticky z-20 overflow-hidden shadow-md bg-white"
+  style="top: var(--header-height); max-height: 0; transition: max-height 0.5s ease-in-out">
+  <ul class="flex flex-col p-2" role="menu">
+    {menuitems.map((item) =>
+      item.children ? (
+        <li class="rounded-md" role="none">
+          <button
+            class="mobile-dropdown-btn flex justify-between items-center w-full p-2 hover:bg-primary-100 rounded-md text-black text-left">
+            <span>{item.title}</span>
+            <svg
+              class="mobile-arrow transition-transform duration-300"
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m10 17l5-5l-5-5" />
+            </svg>
+          </button>
+          <ul
+            class="mobile-submenu flex flex-col pl-4 overflow-hidden"
+            style="max-height: 0; transition: max-height 0.3s ease-in-out"
+            role="menu">
+            {item.children.map((child) => (
+              <li role="menuitem" class="hover:bg-primary-100 rounded-md">
+                <a href={child.path} class="block p-2 text-black" data-astro-prefetch>
+                  {child.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ) : (
+        <li role="menuitem" class="hover:bg-primary-100 rounded-md">
+          <a href={item.path} class="block p-2 text-black" data-astro-prefetch>
+            {item.title}
+          </a>
+        </li>
+      )
+    )}
+  </ul>
+  <div class="p-2">
+    <slot name="menu-right" />
+  </div>
+</div>
+
+<script>
+  // Shrink header on scroll
+  const root = document.documentElement;
+  function onScroll() {
+    root.style.setProperty(
+      "--header-height",
+      window.scrollY > 0 ? "5rem" : "7rem"
+    );
+  }
+  document.addEventListener("scroll", onScroll, { passive: true });
+
+  // Mobile hamburger toggle
+  const mobileBtn = document.getElementById("menuMobileBtn");
+  const mobileMenu = document.getElementById("menu-mobile") as HTMLElement | null;
+  const iconOpen = document.getElementById("icon-open");
+  const iconClose = document.getElementById("icon-close");
+  let mobileOpen = false;
+
+  mobileBtn?.addEventListener("click", () => {
+    mobileOpen = !mobileOpen;
+    if (mobileMenu) mobileMenu.style.maxHeight = mobileOpen ? "100vh" : "0";
+    iconOpen?.classList.toggle("hidden", mobileOpen);
+    iconClose?.classList.toggle("hidden", !mobileOpen);
+    mobileBtn.setAttribute("aria-expanded", String(mobileOpen));
+  });
+
+  // Mobile accordion sub-menus (1 level deep)
+  document.querySelectorAll<HTMLButtonElement>(".mobile-dropdown-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const li = btn.closest("li");
+      const submenu = li?.querySelector<HTMLElement>(".mobile-submenu");
+      const arrow = btn.querySelector<HTMLElement>(".mobile-arrow");
+      if (!submenu) return;
+      const isOpen = submenu.style.maxHeight !== "0px" && submenu.style.maxHeight !== "";
+      submenu.style.maxHeight = isOpen ? "0" : `${submenu.scrollHeight}px`;
+      arrow?.classList.toggle("rotate-90", !isOpen);
+    });
+  });
+</script>

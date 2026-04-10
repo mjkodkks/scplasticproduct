@@ -1,7 +1,7 @@
 ---
 import { SEO } from "astro-seo";
 import Footer from "@components/home/footer.astro";
-import Navbar from "@components/navbar/navbar.vue";
+import Navbar from "@components/navbar/navbar.astro";
 import "../styles/tailwind.css";
 import "../global.css";
 import "@fontsource/anuphan/300.css";
@@ -81,8 +81,6 @@ const makeTitle = title
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
-    <!-- <ClientRouter /> -->
-
     <SEO
       title={makeTitle}
       description="จำหน่ายสินค้าพลาสติกมีเดีย สำหรับระบบบำบัดน้ำเสีย ดักจับไอน้ำ และแผ่นช่วยตกตะกอน"
@@ -107,8 +105,6 @@ const makeTitle = title
     </TopBar>
     <div class="wait-navbar">
       <Navbar
-        client:visible
-        client:only
         contactLocaleData={contactLocaleData}
         menuitems={menuitems}>
         <Image
