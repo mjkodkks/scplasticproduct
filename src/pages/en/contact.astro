@@ -1,0 +1,54 @@
+---
+import Contactform from "@components/contactform.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/home/sectionhead.astro";
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from "astro:content";
+const contactList = await getCollection("contact");
+const currentLocale = Astro.currentLocale;
+
+const contactLocaleData = contactList.find((page) => {
+  const [lang] = page.id.split("/");
+  return lang === currentLocale;
+});
+---
+
+<Layout title="Contact">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Contact Us</Fragment>
+      <Fragment slot="desc">Address</Fragment>
+    </Sectionhead>
+
+    <div style="width: 100%">
+      <iframe width="100%" height="600" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=sc%20plastic%20product+(SC%20plastic%20product)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-4xl mt-16">
+      <div>
+        <h2 class="font-medium text-2xl text-gray-800">Address</h2>
+        <div class="mt-5">
+          <div class="flex items-center mt-2 space-x-2 text-gray-600">
+            <div class="text-gray-400 w-4 h-4" />
+            <span>{contactLocaleData?.data.address}</span>
+          </div>
+          <div class="flex items-center mt-2 space-x-2 text-gray-600">
+            <div class="text-gray-400 w-4 h-4" />
+            <a href={`mailto:${contactLocaleData?.data.email}`}>
+              {contactLocaleData?.data.email}
+            </a>
+          </div>
+          <div class="flex items-center mt-2 space-x-2 text-gray-600">
+            <div class="text-gray-400 w-4 h-4" />
+            <a href={`tel:${contactLocaleData?.data.tels?.[0]}`}>
+              {contactLocaleData?.data.tels?.join(", ")}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <Contactform></Contactform>
+      </div>
+    </div>
+  </Container>
+</Layout>

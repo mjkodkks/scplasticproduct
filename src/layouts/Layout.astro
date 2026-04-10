@@ -15,7 +15,7 @@ import SocialGroup from "@components/socialGroup.astro";
 import TopBar from "@components/navbar/topbar.astro";
 import Link from "@components/ui/link.astro";
 import BackToTop from "@components/backToTop.astro";
-import { ClientRouter } from 'astro:transitions';
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
 
 export interface Props {
   title: string;
@@ -25,7 +25,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
 const resolvedImageWithDomain = new URL(
   "/opengraph.webp",
-  Astro.site
+  Astro.site,
 ).toString();
 
 const { title } = Astro.props;
@@ -38,31 +38,36 @@ const contactLocaleData = contactList.find((page) => {
   return lang === currentLocale ? page : null;
 });
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const langPath = lang === "th" ? "" : "/en";
+
+// auto create childrendren menu from product collection
+const productCollection = await getCollection("product");
+
 const menuitems: MenuItem[] = [
   {
     title: "หน้าหลัก",
-    path: "/",
+    path: `${langPath}/`,
   },
   {
     title: "เกี่ยวกับเรา",
-    path: "/about",
+    path: `${langPath}/about`,
   },
   {
     title: "สินค้า",
-    children: [
-      { title: "ระบบบำบัดน้ำเสีย", path: "/product/ระบบบำบัดน้ำเสีย" },
-      { title: "ระบบผลิตน้ำประปา", path: "/product/ระบบผลิตน้ำประปา" },
-      { title: "ระบบบำบัดอากาศ", path: "/product/ระบบบำบัดอากาศ" },
-      { title: "ระบบดักละอองน้ำ", path: "/product/ระบบดักละอองน้ำ" },
-    ],
+    children: productCollection.map((page) => ({
+      title: page.data.title,
+      path: `${langPath}/product/${page.id}`,
+    })),
   },
   {
     title: "ผลงานของเรา",
-    path: "/project",
+    path: `${langPath}/project`,
   },
   {
     title: "ติดต่อเรา",
-    path: "/contact",
+    path: `${langPath}/contact`,
   },
 ];
 
@@ -72,7 +77,7 @@ const makeTitle = title
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -104,9 +109,7 @@ const makeTitle = title
       <SocialGroup slot={"social"} />
     </TopBar>
     <div class="wait-navbar">
-      <Navbar
-        contactLocaleData={contactLocaleData}
-        menuitems={menuitems}>
+      <Navbar contactLocaleData={contactLocaleData} menuitems={menuitems}>
         <Image
           src={LogoImage}
           alt="logo"
@@ -147,7 +150,6 @@ const makeTitle = title
     </style>
     <div id="fb-root"></div>
     <div id="cc-root"></div>
-    <script src="../utils/cookie-consent.ts">
-    </script>
+    <script src="../utils/cookie-consent.ts"></script>
   </body>
 </html>
