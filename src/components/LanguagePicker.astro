@@ -29,8 +29,7 @@ function switchLangPath(targetLang: string) {
   isMobile ? (
     <div>
       {Object.entries(languages).map(([lang, label], i) => (
-        <div
-          role="menuitem">
+        <div role="menuitem">
           <a
             href={switchLangPath(lang)}
             class:list={[
@@ -43,7 +42,7 @@ function switchLangPath(targetLang: string) {
       ))}
     </div>
   ) : (
-    <div class="relative group/lang">
+    <div class="relative group/lang min-h-12 flex items-center">
       <button
         class="flex items-center gap-1 text-white cursor-pointer"
         aria-haspopup="true">
@@ -79,7 +78,8 @@ function switchLangPath(targetLang: string) {
       </button>
 
       <ul
-        class="absolute right-0 top-full min-w-[120px] bg-white rounded-md shadow-md opacity-0 invisible group-hover/lang:opacity-100 group-hover/lang:visible transition-all duration-300 flex flex-col"
+        class="absolute right-0 top-full min-w-[120px] bg-white rounded-md shadow-md opacity-0 invisible group-hover/lang:opacity-100 
+        group-hover/lang:visible transition-all duration-300 flex flex-col before:border-t-4 before:border-t-black"
         role="menu">
         {Object.entries(languages).map(([lang, label], i) => (
           <li

@@ -1,0 +1,219 @@
+---
+import Container from "@components/container.astro";
+import Sectionhead from "@components/home/sectionhead.astro";
+import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+const imagesProject = await import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/project/*.{jpeg,jpg,png,gif}",
+);
+
+const path = "/src/assets/project/";
+
+const projects: {
+  title: string;
+  description: string;
+  image: ImageMetadata;
+}[] = [
+  {
+    title: "Pall ring media",
+    description:
+      "สำหรับระบบบำบัดน้ำเสีย โครงการโรบินสันกลาง จังหวัดภูเก็ต จำนวน 200,000 ชิ้น",
+    image: (await imagesProject[path + "pal_ring_media.jpg"]()).default,
+  },
+  {
+    title: "Cross flow media",
+    description:
+      "ใช้ในระบบบำบัดน้ำเสีย โครงการ นิคมอุตสาหกรรมโรจน จ 2 โครงการ 8",
+    image: (await imagesProject[path + "cross_flow_media.jpg"]()).default,
+  },
+  {
+    title: "Tube Settler",
+    description:
+      "โครงการโรงผลิตน้ำประปาสามเสน กรุงเทพมหานคร ขนาด (ก.×ย.×ส.) 100 x 25 x 75 ซม.",
+    image: (await imagesProject[path + "tube_settler.jpg"]()).default,
+  },
+  {
+    title: "Tube Settler",
+    description: "สีฟ้า ขนาด ยาว 3 เมตร 24 ก้อน และ ยาว 2.40 เมตร 144 ก้อน",
+    image: (await imagesProject[path + "tube_settler2.jpg"]()).default,
+  },
+  {
+    title: "Drift Eliminator รุ่น Blade type",
+    description: "ขนาด เส้นผ่านศูนย์กลาง 178 เซนติเมตร",
+    image: (await imagesProject[path + "drift_eliminator.jpg"]()).default,
+  },
+  {
+    title: "Cross flow media และ fin filter",
+    description: "สำหรับบำบัดตะกอนในบ่อปลาคราฟ",
+    image: (await imagesProject[path + "cross_flow_media_fin_filter.jpg"]())
+      .default,
+  },
+];
+---
+
+<Layout title="Project">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">ผลงานของเรา</Fragment>
+    </Sectionhead>
+
+    <div class="py-8">
+      <div class="grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12">
+        {
+          projects.map((item) => (
+            <div>
+              <div
+                class="image-block flex justify-center items-center hover:transform hover:scale-105 transition-transform"
+                data-url={item.image.src}>
+                {item.image && (
+                  <Image
+                    src={item.image}
+                    alt={item.image.src}
+                    height={375}
+                    width={500}
+                    loading={"eager"}
+                    class="rounded-lg cursor-pointer image-click"
+                  />
+                )}
+              </div>
+              <h2 class="font-medium text-2xl text-gray-800 text-center mt-4">
+                {item.title}
+              </h2>
+              <p class="text-lg leading-relaxed text-slate-500 mt-3">
+                {item.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <dialog id="imageDialogRoot">
+      <img src="" alt="" id="imageModal" />
+      <button id="closeDialog">X</button>
+    </dialog>
+  </Container>
+</Layout>
+
+<script>
+  const imageDialogRoot = document.getElementById(
+    "imageDialogRoot",
+  ) as HTMLDialogElement;
+  const imageModal = document.getElementById("imageModal") as HTMLImageElement;
+  const closeDialog = document.getElementById(
+    "closeDialog",
+  ) as HTMLButtonElement;
+  const imageBlocks = document.querySelectorAll(".image-block");
+
+  let activeThumbnail: HTMLImageElement | null = null;
+
+  imageDialogRoot.addEventListener("click", (e) => {
+    if (e.target === imageDialogRoot) {
+      closeDialogHandler();
+    }
+  });
+
+  // Add click listeners to all image blocks
+  for (const imageBlock of imageBlocks) {
+    imageBlock.addEventListener("click", () => {
+      const url = imageBlock.getAttribute("data-url");
+      const image = imageBlock.querySelector("img");
+      openDialog(url, image as HTMLImageElement);
+    });
+  }
+
+  function openDialog(src: string | null, thumbnail: HTMLImageElement) {
+    if (!imageModal || !imageDialogRoot || !src) return;
+    activeThumbnail = thumbnail;
+    imageModal.src = src;
+    // Give the thumbnail the transition name so the browser captures it
+    thumbnail.style.viewTransitionName = "moph-full";
+    document.startViewTransition(() => {
+      // Swap: remove from thumbnail, give to modal
+      thumbnail.style.viewTransitionName = "";
+      imageModal.style.viewTransitionName = "moph-full";
+      imageModal.classList.add("h-full", "w-full");
+      imageDialogRoot.showModal();
+    });
+  }
+
+  closeDialog.addEventListener("click", closeDialogHandler);
+
+  function closeDialogHandler() {
+    const thumbnail = activeThumbnail;
+    const transition = document.startViewTransition(() => {
+      // Swap: remove from modal, give back to thumbnail
+      imageModal.style.viewTransitionName = "";
+      if (thumbnail) {
+        thumbnail.style.viewTransitionName = "moph-full";
+      }
+      imageDialogRoot.close();
+    });
+
+    // Clean up transition names after transition finishes
+    transition.finished.then(() => {
+      if (thumbnail) thumbnail.style.viewTransitionName = "";
+      activeThumbnail = null;
+    });
+  }
+</script>
+
+<style scoped>
+  dialog {
+    position: fixed;
+    inset: 0 0 0 0;
+    margin: auto;
+    background: transparent;
+    height: 100%;
+  }
+
+  dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  #closeDialog {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  #imageModal {
+    object-fit: contain;
+  }
+
+  .fadein {
+    animation: fadein 0.25s ease-in forwards;
+  }
+
+  .fadeout {
+    animation: fadeout 0.25s ease-in forwards;
+  }
+
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeout {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    dialog {
+      height: fit-content;
+    }
+  }
+</style>
